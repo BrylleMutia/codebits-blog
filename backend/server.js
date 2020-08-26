@@ -1,19 +1,19 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const bodyParser = require("body-parser");
+const config = require("config");
 
 const app = express();
 
 const itemsRouter = require("./routes/api/items"); // import routes
 
 // body-parser middleware
-app.use(bodyParser.json());
+app.use(express.json());
 
 // connect to db
-const db = "mongodb://127.0.0.1:27017";
+const db = config.get("MONGO_URI");
 mongoose
     .connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
-    .then(() => console.log(`Connected to database: ${db}`))
+    .then(() => console.log(`Connected to database!`))
     .catch((err) => console.error(err));
 
 // Use routes (redirect all api requests to routes file)
