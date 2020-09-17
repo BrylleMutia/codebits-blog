@@ -4,8 +4,6 @@
     "description": "",
     "main": "server.js",
     "scripts": {
-        "client": "npm start --prefix ../frontend",
-        "client-install": "npm install --prefix ../frontend",
         "start": "node server",
         "server": "nodemon server",
         "dev": "concurrently \"npm run server\" \"npm run client\""

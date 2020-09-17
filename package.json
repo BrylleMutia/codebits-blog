@@ -1,0 +1,15 @@
+{
+    "name": "codebits-blog",
+    "version": "1.0.0",
+    "description": "Official blog of codebits. Programming x Design!",
+    "main": "index.js",
+    "scripts": {
+        "frontend": "npm start --prefix frontend",
+        "frontend-install": "npm install --prefix frontend",
+        "backend": "npm run server --prefix backend",
+        "backend-install": "npm install --prefix backend",
+        "fullstack": "npm run dev --prefix backend"
+    },
+    "author": "Brylle Mutia",
+    "license": "ISC"
+}

@@ -1,42 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const fs = require("fs");
-const path = require("path");
-const multer = require("multer");
+
+const upload = require('../../middleware/upload');
 
 const Post = require("../../models/Post");
-
-// store images using multer
-const storage = multer.diskStorage({
-    destination: (req, file, callback) => {
-        callback(null, "uploads");
-    },
-    filename: (req, file, callback) => {
-        callback(null, new Date().toISOString().slice(0, 10) + "-" + file.originalname);
-    },
-});
-
-// filter files by file types
-const fileFilter = (req, file, callback) => {
-    if (file.mimetype === "image/jpeg" || file.mimetype === "image/png") {
-        // accept file
-        callback(null, true);
-    } else {
-        // reject file
-        callback(new Error("Invalid file format"), false);
-    }
-};
-
-const upload = multer({
-    storage: storage,
-    // limit file size by 10 MB
-    limits: {
-        fileSize: 1024 * 1024 * 10,
-    },
-    // add file filter
-    fileFilter: fileFilter,
-});
-
 
 // @route   GET api/posts
 // @desc    Get all posts with images
@@ -50,26 +17,37 @@ router.get("/", (req, res) => {
 // @route   POST api/posts
 // @desc    Add new post with images
 // @access  Public
-router.post("/", upload.single("contentImage"), (req, res) => {
-    console.log(req.file);
+router.post("/", upload.array("postImages", 20), (req, res, next) => {
+    console.log(req.files);
+
+    if (!req.files) {
+        const err = new Error("Unsuccessful file upload");
+        return next(err);
+    }
+
+    // get path of all uploaded images then save on db
+    imagesPath = req.files.map((file) => file.path);
 
     const { title, header } = req.body;
 
     const newPost = new Post({
         title,
         header,
-        contentImage: req.file.filename
-        // rating,
-        // images: {
-        //     data: fs.readFileSync(path.join(__dirname + "/uploads/" + req.file.filename)),
-        //     contentType: "image/png",
-        // },
+        images: imagesPath,
     });
 
     newPost
         .save()
         .then((post) => res.json(post))
         .catch((err) => res.status(400).json(err));
+});
+
+router.delete("/:postId", (req, res) => {
+    Post.findById(req.params.postId).then((post) => {
+        post.remove()
+            .then(() => res.json({ deleteSuccess: true }))
+            .catch((error) => res.status(400).json({ deleteSuccess: false, error }));
+    });
 });
 
 module.exports = router;

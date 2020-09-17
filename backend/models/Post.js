@@ -17,13 +17,15 @@ const postSchema = new Schema({
     },
     rating: [
         {
-            type: String,
+            type: Number,
             required: false,
         },
     ],
-    contentImage: [{
-        type: String
-    }]
+    images: [
+        {
+            type: String,
+        },
+    ],
 });
 
 module.exports = Post = mongoose.model("post", postSchema);

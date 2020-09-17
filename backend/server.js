@@ -10,9 +10,9 @@ const app = express();
 app.use(express.json());
 // Use routes (redirect all api requests to routes file)
 app.use("/api/posts", require("./routes/api/posts"));
+app.use("/api/users", require("./routes/api/users"));
 // redirect requests to /upload to public "uploads" folder then retrieve image
 app.use("/uploads", express.static("uploads"));
-
 
 
 // connect to db
@@ -21,6 +21,7 @@ mongoose
     .connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log(`Connected to database!`))
     .catch((err) => console.error(err));
+
 
 // initialize port
 const port = process.env.PORT || 5000;
