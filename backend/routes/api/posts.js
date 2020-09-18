@@ -10,6 +10,7 @@ const Post = require("../../models/Post");
 // @access  Public
 router.get("/", (req, res) => {
     Post.find()
+        .sort({ date: ascending })
         .then((posts) => res.json(posts))
         .catch((err) => res.status(400).json(err));
 });
