@@ -2,6 +2,7 @@
   --color-primary: #2d383c;
   --color-secondary: #0784b5;
   --color-accent: #39ace7;
+  --color-default: #EBECED;
 }
 
 *,
@@ -40,6 +41,14 @@ p {
 
 .container {
   width: 80%;
+  max-width: 1040px;
+  margin: 0 auto;
+}
+
+@media (max-width: 740px) {
+  .container {
+    width: 100%;
+  }
 }
 
 .side_padding {
@@ -69,5 +78,11 @@ p {
 
 .link:hover, .link:focus {
   color: var(--color-accent);
+}
+
+.input {
+  border: none;
+  background-color: var(--color-default, #fff);
+  padding: 0.3em;
 }
 /*# sourceMappingURL=App.module.css.map */

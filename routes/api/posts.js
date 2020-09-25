@@ -10,7 +10,7 @@ const Post = require("../../models/Post");
 // @access  Public
 router.get("/", (req, res) => {
     Post.find()
-        .sort({ date: ascending })
+        .sort({ date: 1 })
         .then((posts) => res.json(posts))
         .catch((err) => res.status(400).json(err));
 });
@@ -18,7 +18,7 @@ router.get("/", (req, res) => {
 // @route   POST api/posts
 // @desc    Add new post with images
 // @access  Public
-router.post("/", upload.array("postImages", 20), (req, res, next) => {
+router.post("/", upload.array("images", 20), (req, res, next) => {
     console.log(req.files);
 
     if (!req.files) {

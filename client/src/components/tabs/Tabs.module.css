@@ -1,0 +1,9 @@
+.tabs__button {
+  padding: 1em 1.5em;
+  border: none;
+  background: var(--color-default);
+  color: #000;
+  outline: none;
+  cursor: pointer;
+}
+/*# sourceMappingURL=Tabs.module.css.map */

@@ -1,0 +1,36 @@
+.card {
+    margin: 1em;
+    width: 300px;
+
+    img {
+        width: 300px;
+    }
+
+    &__details {
+        padding: 1em;
+        background: var(--color-default);
+
+        h3 {
+            font-size: 1rem;
+        }
+
+        p {
+            font-size: 0.9rem;
+            opacity: 0.7;
+            margin-top: 0.3em;
+        }
+    }
+
+    &__rating {
+        width: 50px;
+        text-align: center;
+        font-weight: 700;
+        background: var(--color-secondary);
+        padding: 2px 5px;
+        color: white;
+        font-size: 0.9rem;
+        position: relative;
+        left: 80%;
+        top: 2.5em;
+    }
+}

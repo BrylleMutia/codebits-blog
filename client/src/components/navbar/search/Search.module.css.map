@@ -1,6 +1,6 @@
 {
     "version": 3,
-    "mappings": "",
+    "mappings": "AAAA,AAAA,OAAO,CAAC;EACJ,OAAO,EAAE,GAAG;EACZ,UAAU,EAAE,oBAAoB;EAChC,MAAM,EAAE,KAAK;EACb,aAAa,EAAE,GAAG;CAKrB;;AATD,AAMI,OANG,CAMH,GAAG,CAAC;EACA,MAAM,EAAE,SAAS;CACpB",
     "sources": [
         "Search.module.scss"
     ],

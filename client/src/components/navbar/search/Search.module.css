@@ -1,1 +1,12 @@
-/* No CSS *//*# sourceMappingURL=Search.module.css.map */
+.search {
+  padding: 1em;
+  background: var(--color-default);
+  height: 1.5em;
+  border-radius: 5px;
+}
+
+.search img {
+  -webkit-filter: invert(1);
+          filter: invert(1);
+}
+/*# sourceMappingURL=Search.module.css.map */
