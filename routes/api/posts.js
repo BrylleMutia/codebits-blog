@@ -29,12 +29,14 @@ router.post("/", upload.array("images", 20), (req, res, next) => {
     // get path of all uploaded images then save on db
     imagesPath = req.files.map((file) => file.path);
 
-    const { title, header } = req.body;
+    const { title, header, rating, category } = req.body;
 
     const newPost = new Post({
         title,
         header,
-        images: imagesPath,
+        rating,
+        category,
+        images: imagesPath
     });
 
     newPost

@@ -2,7 +2,7 @@ import { SET_POSTS, POSTS_LOADING, POSTS_LOADED } from "../actions/types";
 
 const initialState = {
     isLoading: false,
-    posts: null,
+    posts: [],
 };
 
 export default function (state = initialState, action) {
@@ -25,8 +25,6 @@ export default function (state = initialState, action) {
                 isLoading: false,
             };
         default:
-            return {
-                ...state,
-            };
+            return state;
     }
 }

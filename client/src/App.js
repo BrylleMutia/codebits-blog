@@ -12,11 +12,11 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 function App() {
     const dispatch = useDispatch();
-
+    
     useEffect(() => {
         dispatch(getPosts());
     }, []);
-
+    
     const posts = useSelector((state) => state.posts.posts);
 
     return (
