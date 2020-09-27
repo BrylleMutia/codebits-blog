@@ -3,7 +3,7 @@ import { returnErrors, clearErrors } from "./errorActions";
 import axios from "axios";
 
 // get posts from database
-export const getPosts = () => (dispatch) => {
+export const getPosts = (page) => (dispatch) => {
     dispatch(setPostsLoading());
 
     const headers = {
@@ -11,7 +11,7 @@ export const getPosts = () => (dispatch) => {
     };
 
     axios
-        .get("/api/posts", headers)
+        .get(`/api/posts/${page}`, headers)
         .then((posts) =>
             dispatch({
                 type: SET_POSTS,
@@ -20,7 +20,7 @@ export const getPosts = () => (dispatch) => {
         )
         .catch((err) => dispatch(returnErrors(err.response.data, err.response.status)));
 
-    dispatch(setPostsLoaded);
+    dispatch(setPostsLoaded());
 };
 
 export const setPostsLoading = () => ({

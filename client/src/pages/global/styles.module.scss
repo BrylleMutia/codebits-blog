@@ -1,0 +1,54 @@
+.app {
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
+.container {
+    width: 80%;
+    max-width: 1040px;
+    margin: 0 auto;
+}
+
+@media (max-width: 740px) {
+    .container {
+        width: 100%;
+    }
+}
+
+.side_padding {
+    padding: 0 var(--side-padding, 2em);
+}
+
+.horizontal_spacer > * + * {
+    margin-left: var(--horizontal-space, 1em);
+}
+
+.flex_row {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: var(--row-justify, start);
+    -ms-flex-pack: var(--row-justify, start);
+    justify-content: var(--row-justify, start);
+    -webkit-box-align: var(--row-align, center);
+    -ms-flex-align: var(--row-align, center);
+    align-items: var(--row-align, center);
+}
+
+.link {
+    color: var(--color-secondary);
+    text-decoration: none;
+}
+
+.link:hover,
+.link:focus {
+    color: var(--color-accent);
+}
+
+.input {
+    border: none;
+    background-color: var(--color-default, #fff);
+    padding: 0.3em;
+}
+/*# sourceMappingURL=global.css.map */

@@ -1,0 +1,85 @@
+// CUSTOM PROPERTIES
+
+:root {
+    --color-primary: #2d383c;
+    --color-secondary: #0784b5;
+    --color-accent: #39ace7;
+    --color-default: #EBECED;
+}
+
+// DEFAULTS
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: roboto;
+    // background: var(--color-default);
+}
+
+img {
+    display: block;
+    max-width: 100%;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+    margin: 0;
+}
+
+// GLOBAL CLASSES
+
+.app {
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
+.container {
+    width: 80%;
+    max-width: 1040px;
+    margin: 0 auto;
+
+    @media (max-width: 740px) {
+        width: 100%;
+    }
+}
+
+.side_padding {
+    padding: 0 var(--side-padding, 2em);
+}
+
+.horizontal_spacer > * + * {
+    margin-left: var(--horizontal-space, 1em);
+}
+
+.flex_row {
+    display: flex;
+    justify-content: var(--row-justify, start);
+    align-items: var(--row-align, center);
+}
+
+.link {
+    color: var(--color-secondary);
+    text-decoration: none;
+
+    &:hover, &:focus {
+        color: var(--color-accent);
+    }
+}
+
+.input {
+    border: none;
+    background-color: var(--color-default, #fff);
+    padding: 0.3em;
+}

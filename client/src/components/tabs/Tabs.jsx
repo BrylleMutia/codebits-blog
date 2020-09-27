@@ -6,7 +6,7 @@ import { changeTab } from "../../actions/controlActions";
 import { useSelector, useDispatch } from "react-redux";
 
 const Tabs = () => {
-    const [tabs] = useState(["Featured", "Popular", "Latest"]);
+    const [tabs] = useState(["Latest", "Top Rated"]);
 
     const dispatch = useDispatch();
     const currentTab = useSelector((state) => state.controls.tab);

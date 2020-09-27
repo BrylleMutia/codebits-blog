@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { switches } from "./Switches.module.css";
 import { horizontal_spacer } from "../../../App.module.css";
 
@@ -19,6 +19,11 @@ const Switches = ({ categories }) => {
             dispatch(switchOn(switchName));
         }
     };
+
+    // turn category switches on by default
+    // useEffect(() => {
+    //     categories.map((category) => handleToggleSwitch(category));
+    // }, []);
 
     const getSwitchStyles = (switchName) => {
         return {

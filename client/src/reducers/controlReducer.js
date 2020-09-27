@@ -1,7 +1,7 @@
 import { CHANGE_TAB, SWITCH_ON, SWITCH_OFF } from "../actions/types";
 
 const initialState = {
-    tab: "Featured",
+    tab: "Latest",
     switches: [],
 };
 
