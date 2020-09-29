@@ -1,4 +1,5 @@
 import { CHANGE_TAB, SWITCH_ON, SWITCH_OFF } from "../actions/types";
+import { HYDRATE } from "next-redux-wrapper";
 
 const initialState = {
     tab: "Latest",
@@ -7,6 +8,11 @@ const initialState = {
 
 export default function (state = initialState, action) {
     switch (action.type) {
+        case HYDRATE:
+            return {
+                ...state,
+                ...action.payload,
+            };
         case CHANGE_TAB:
             return {
                 ...state,

@@ -11,7 +11,7 @@ export const getPosts = (page) => (dispatch) => {
     };
 
     axios
-        .get(`/api/posts/${page}`, headers)
+        .get(`/api/posts?page=${page}`, headers)
         .then((posts) =>
             dispatch({
                 type: SET_POSTS,
