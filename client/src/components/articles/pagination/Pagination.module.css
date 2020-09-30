@@ -1,0 +1,15 @@
+.pagination {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  list-style: none;
+}
+
+.pagination > * {
+  margin-left: 1em;
+}
+
+.active {
+  background: blue;
+}
+/*# sourceMappingURL=Pagination.module.css.map */

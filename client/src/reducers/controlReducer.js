@@ -8,11 +8,6 @@ const initialState = {
 
 export default function (state = initialState, action) {
     switch (action.type) {
-        case HYDRATE:
-            return {
-                ...state,
-                ...action.payload,
-            };
         case CHANGE_TAB:
             return {
                 ...state,

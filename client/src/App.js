@@ -25,7 +25,7 @@ function App() {
                 <Navbar />
                 <div className={container}>
                     <Tabs />
-                    <Articles posts={posts} />
+                    <Articles />
                 </div>
             </div>
         </Router>

@@ -1,6 +1,8 @@
 import { createStore, applyMiddleware, compose } from "redux";
 import rootReducer from "../reducers/index";
 import thunk from "redux-thunk";
+import { composeWithDevTools } from "redux-devtools-extension";
+import { createWrapper } from "next-redux-wrapper";
 
 const middleware = [thunk];
 
@@ -12,14 +14,16 @@ const middleware = [thunk];
 
 // export default store;
 
-const makeStore = () => {
-    const store = createStore(
-        rootReducer,
-        // applyMiddleware(...middleware)
-        compose(applyMiddleware(...middleware), window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
-    );
+// const initialState = {};
 
-    return store;
-};
+const store = createStore(
+    rootReducer,
+    // applyMiddleware(...middleware)
+    composeWithDevTools(applyMiddleware(...middleware))
+);
 
-export default makeStore;
+export default store;
+
+// const store = createStore(rootReducer, initialState, composeWithDevTools(applyMiddleware(...middleware)));
+
+// export const wrapper = createWrapper(makeStore, { debug: true });

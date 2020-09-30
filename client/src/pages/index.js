@@ -12,6 +12,9 @@ import { useSelector, useDispatch } from "react-redux";
 const Home = (props) => {
     const [isLoading, setLoading] = useState(false);
 
+    const dispatch = useDispatch();
+    const postsDetails = useSelector((state) => state.posts.posts);
+
     const startLoading = () => setLoading(true);
     const stopLoading = () => setLoading(false);
 
@@ -19,6 +22,10 @@ const Home = (props) => {
         posts fetching happens after page navigation,
         so we need to switch loading state on router events.
     */
+
+    useEffect(() => {
+        dispatch(getPosts(1));
+    }, []);
 
     useEffect(() => {
         // after the component is mounted, set router event handlers
@@ -49,24 +56,24 @@ const Home = (props) => {
     };
 
     // conditional rendering of the posts list or the loading indicator
-    let content = null;
-    if (isLoading) {
-        content = <div>Loading...</div>;
-    } else {
-        // generate posts list
-        content = (
-            <ul>
-                {props.posts.posts.map((post) => (
-                    <li key={post._id}>{post.title}</li>
-                ))}
-            </ul>
-        );
-    }
+    // let content = null;
+    // if (isLoading) {
+    //     content = <div>Loading...</div>;
+    // } else {
+    //     // generate posts list
+    //     content = (
+    //         <ul>
+    //             {/* {postsDetails.posts.map((post) => (
+    //                 <li key={post._id}>{post.title}</li>
+    //             ))} */}
+    //         </ul>
+    //     );
+    // }
 
     return (
         <div className={container}>
             <h1>Posts list with pagination in Next.js</h1>
-            <div className="posts">{content}</div>
+            {/* <div className="posts">{content}</div> */}
 
             <ReactPaginate
                 previousLabel={"previous"}
@@ -76,8 +83,8 @@ const Home = (props) => {
                 activeClassName={"active"}
                 containerClassName={"pagination"}
                 subContainerClassName={"pages pagination"}
-                initialPage={props.posts.currentPage - 1}
-                pageCount={props.posts.totalPages}
+                initialPage={postsDetails.currentPage - 1}
+                pageCount={postsDetails.totalPages}
                 marginPagesDisplayed={2}
                 pageRangeDisplayed={5}
                 onPageChange={paginationHandler}
@@ -87,12 +94,15 @@ const Home = (props) => {
 };
 
 // fetching posts in getInitialProps to make the app SEO-friendly
-Home.getInitialProps = ({ store, query }) => {
-    const page = query.page || 1; // if page is empty request the first page
+// Home.getInitialProps = ({ store, query }) => {
+//     const page = query.page || 1; // if page is empty request the first page
 
-    store.dispatch(getPosts(page));
+//     store.dispatch(getPosts(1));
+//     const posts = store.getState().posts.posts.posts;
 
-    return posts;
-};
+//     return posts;
+// };
+
+export const get
 
 export default withRouter(Home);

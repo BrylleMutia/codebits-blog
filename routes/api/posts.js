@@ -33,7 +33,6 @@ router.get("/", async (req, res) => {
     }
 });
 
-
 // @route   POST api/posts
 // @desc    Add new post with images
 // @access  Public

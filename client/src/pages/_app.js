@@ -1,16 +1,25 @@
-import "./global/global.css";
-import withRedux from 'next-redux-wrapper';
-import { Provider } from 'react-redux';
-import makeStore from '../store/index';
+import React from "react";
+import App, { AppInitialProps, AppContext } from "next/app";
+import { wrapper } from "../store/index";
+import { getPosts } from "../actions/postsActions";
 
-// This default export is required in a new `pages/_app.js` file.
-function MyApp({ Component, pageProps, store, ...rest }) {
-    return (
-        <Provider store={store}>
-            <Component {...pageProps} />
-        </Provider>
-    );
+class WrappedApp extends App {
+    static getInitialProps = async ({ Component, ctx }) => {
+        ctx.store.dispatch(getPosts(1));
+
+        return {
+            pageProps: {
+                ...(Component.getInitialProps ? await Component.getInitialProps(ctx) : {}),
+                appProp: ctx.pathname,
+            },
+        };
+    };
+
+    render() {
+        const { Component, pageProps } = this.props;
+
+        return <Component {...pageProps} />;
+    }
 }
 
-
-export default withRedux(makeStore)(MyApp);
+export default wrapper.withRedux(WrappedApp);

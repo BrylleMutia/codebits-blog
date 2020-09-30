@@ -3,8 +3,13 @@ import { articles, cards } from "./Articles.module.css";
 
 import Card from "./card/Card";
 import Switches from "./switches/Switches";
+import Pagination from "./pagination/Pagination";
 
-const Articles = ({ posts }) => {
+import { useSelector } from "react-redux";
+
+const Articles = () => {
+    const posts = useSelector(state => state.posts.posts);
+
     // get all current categories in posts for switches
     // remove duplicates
     let categories = posts.map((post) => post.category);
@@ -24,6 +29,7 @@ const Articles = ({ posts }) => {
                         <Card postDetails={post} />
                     ))}
                 </div>
+                <Pagination />
             </div>
         </main>
     );
