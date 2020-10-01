@@ -18,7 +18,7 @@ const postSchema = new Schema({
     rating: [
         {
             type: Number,
-            required: false,
+            required: true,
         },
     ],
     category: [

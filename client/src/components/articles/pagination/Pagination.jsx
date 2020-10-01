@@ -1,34 +1,38 @@
 import React from "react";
-import ReactPaginate from "react-paginate";
+
+import { makeStyles } from "@material-ui/core/styles";
+import Pagination from "@material-ui/lab/Pagination";
+
 import { useDispatch, useSelector } from "react-redux";
 import { getPosts } from "../../../actions/postsActions";
 
-import { pagination, active } from "./Pagination.module.css";
+const useStyles = makeStyles(() => ({
+    pages: {
+        margin: "2em",
+    },
+}));
 
-const Pagination = () => {
+const Pages = () => {
+    const classes = useStyles();
+
     const dispatch = useDispatch();
     const { currentPage, totalPages } = useSelector((state) => state.posts);
 
-    const paginationHandler = (page) => {
-        dispatch(getPosts(page.selected + 1));
+    const paginationHandler = (event, page) => {
+        dispatch(getPosts(page));
     };
 
     return (
-        <ReactPaginate
-            previousLabel={"previous"}
-            nextLabel={"next"}
-            breakLabel={"..."}
-            breakClassName={"break-me"}
-            activeClassName={active}
-            containerClassName={pagination}
-            subContainerClassName={"pages pagination"}
-            initialPage={currentPage}
-            pageCount={totalPages}
-            marginPagesDisplayed={2}
-            pageRangeDisplayed={5}
-            onPageChange={paginationHandler}
+        <Pagination
+            className={classes.pages}
+            color="primary"
+            count={totalPages}
+            defaultPage={1}
+            page={currentPage}
+            onChange={paginationHandler}
+            siblingCount={3}
         />
     );
 };
 
-export default Pagination;
+export default Pages;

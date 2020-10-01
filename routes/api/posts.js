@@ -36,12 +36,10 @@ router.get("/", async (req, res) => {
 // @route   POST api/posts
 // @desc    Add new post with images
 // @access  Public
-router.post("/", upload.array("images", 20), (req, res, next) => {
-    console.log(req.files);
-
+router.post("/", upload.array("images", 20), async (req, res, next) => {
+    // check if files are existent
     if (!req.files) {
-        const err = new Error("Unsuccessful file upload");
-        return next(err);
+        res.status(400).json({ msg: "Empty or unsuccessful file upload" });
     }
 
     // get path of all uploaded images then save on db
@@ -49,18 +47,28 @@ router.post("/", upload.array("images", 20), (req, res, next) => {
 
     const { title, header, rating, category } = req.body;
 
-    const newPost = new Post({
-        title,
-        header,
-        rating,
-        category,
-        images: imagesPath,
-    });
+    // check if rating field is given
+    if (!rating) res.status(400).json({ msg: "Please provide initial rating" });
 
-    newPost
-        .save()
-        .then((post) => res.json(post))
-        .catch((err) => res.status(400).json(err));
+    // check if title is unique
+    const dupe = await Post.findOne({ title });
+
+    if (dupe) {
+        res.status(400).json({ msg: "Title already exists" });
+    } else {
+        const newPost = new Post({
+            title,
+            header,
+            rating,
+            category,
+            images: imagesPath,
+        });
+
+        newPost
+            .save()
+            .then((post) => res.json(post))
+            .catch((err) => res.status(400).json(err));
+    }
 });
 
 router.delete("/:postId", (req, res) => {
