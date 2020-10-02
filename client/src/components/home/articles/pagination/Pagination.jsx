@@ -4,7 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Pagination from "@material-ui/lab/Pagination";
 
 import { useDispatch, useSelector } from "react-redux";
-import { getPosts } from "../../../actions/postsActions";
+import { getPosts } from "../../../../actions/postsActions";
 
 const useStyles = makeStyles(() => ({
     pages: {

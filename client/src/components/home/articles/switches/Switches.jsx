@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { switches } from "./Switches.module.css";
-import { horizontal_spacer } from "../../../App.module.css";
+import { horizontal_spacer } from "../../../../App.module.css";
 
-import { switchOn, switchOff } from "../../../actions/controlActions";
+import { switchOn, switchOff } from "../../../../actions/controlActions";
 import { useSelector, useDispatch } from "react-redux";
 
 import cx from "classnames";

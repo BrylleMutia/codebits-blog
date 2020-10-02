@@ -23,6 +23,23 @@ export const getPosts = (page) => (dispatch) => {
     dispatch(setPostsLoaded());
 };
 
+export const addPost = (postDetails) => (dispatch) => {
+    dispatch(setPostsLoading());
+
+    const headers = {
+        "Content-Type": "application/json",
+    };
+
+    console.log(postDetails);
+
+    const body = JSON.stringify(postDetails);
+
+    axios
+        .post("/api/posts", body, headers)
+        .then(() => dispatch(setPostsLoaded()))
+        .catch((err) => returnErrors(err.response.data, err.response.status));
+};
+
 export const setPostsLoading = () => ({
     type: POSTS_LOADING,
 });

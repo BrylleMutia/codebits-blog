@@ -1,5 +1,4 @@
 import { CHANGE_TAB, SWITCH_ON, SWITCH_OFF } from "../actions/types";
-import { HYDRATE } from "next-redux-wrapper";
 
 const initialState = {
     tab: "Latest",

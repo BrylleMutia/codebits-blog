@@ -6,11 +6,9 @@ import logo from "../images/logo.png";
 import Search from "./search/Search";
 
 import cx from "classnames";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 
 const Navbar = ({ location }) => {
-    console.log(location);
-
     return (
         <nav>
             <div style={{ "--row-justify": "space-between" }} className={cx(flex_row, side_padding, navbar)}>
@@ -24,15 +22,15 @@ const Navbar = ({ location }) => {
 
                 <div style={{ "--horizontal-space": "3em", "--row-align": "flex-end" }} className={cx(flex_row, horizontal_spacer, navbar__menu)}>
                     <div style={{ "--horizontal-space": "1.5em" }} className={cx(flex_row, horizontal_spacer, navbar__links)}>
-                        <a style={{ borderBottomColor: location.pathname === "/" ? "var(--color-accent)" : "transparent" }} className={link} href="#">
+                        <Link to="/" style={{ borderBottomColor: location.pathname === "/" ? "var(--color-accent)" : "transparent" }} className={link} href="#">
                             Home
-                        </a>
-                        <a className={link} href="#">
-                            Articles
-                        </a>
-                        <a className={link} href="#">
-                            About Us
-                        </a>
+                        </Link>
+                        <Link to="/dashboard" className={link}>
+                            Dashboard
+                        </Link>
+                        <Link to="/about" className={link}>
+                            About
+                        </Link>
                     </div>
                 </div>
                 

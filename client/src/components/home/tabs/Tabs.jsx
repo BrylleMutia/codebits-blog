@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { tabs__button } from "./Tabs.module.css";
 
-import { changeTab } from "../../actions/controlActions";
+import { changeTab } from "../../../actions/controlActions";
 
 import { useSelector, useDispatch } from "react-redux";
 

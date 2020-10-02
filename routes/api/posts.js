@@ -38,8 +38,8 @@ router.get("/", async (req, res) => {
 // @access  Public
 router.post("/", upload.array("images", 20), async (req, res, next) => {
     // check if files are existent
-    if (!req.files) {
-        res.status(400).json({ msg: "Empty or unsuccessful file upload" });
+    if (!req.files.length) {
+        return res.status(400).json({ msg: "Empty or unsuccessful file upload" });
     }
 
     // get path of all uploaded images then save on db
@@ -48,13 +48,13 @@ router.post("/", upload.array("images", 20), async (req, res, next) => {
     const { title, header, rating, category } = req.body;
 
     // check if rating field is given
-    if (!rating) res.status(400).json({ msg: "Please provide initial rating" });
+    if (!rating) return res.status(400).json({ msg: "Please provide initial rating" });
 
     // check if title is unique
     const dupe = await Post.findOne({ title });
 
     if (dupe) {
-        res.status(400).json({ msg: "Title already exists" });
+        return res.status(400).json({ msg: "Title already exists" });
     } else {
         const newPost = new Post({
             title,
