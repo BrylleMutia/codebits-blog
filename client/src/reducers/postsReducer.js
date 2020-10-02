@@ -1,4 +1,4 @@
-import { SET_POSTS, POSTS_LOADING, POSTS_LOADED } from "../actions/types";
+import { GET_POSTS, POSTS_LOADING, POSTS_LOADED } from "../actions/types";
 
 const initialState = {
     isLoading: false,
@@ -9,7 +9,7 @@ const initialState = {
 
 export default function (state = initialState, action) {
     switch (action.type) {
-        case SET_POSTS:
+        case GET_POSTS:
             return {
                 ...state.isLoading,
                 ...action.payload
