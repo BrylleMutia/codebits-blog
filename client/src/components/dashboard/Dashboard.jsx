@@ -55,7 +55,14 @@ const Dashboard = () => {
                     <InputLabel shrink={true} id="rating">
                         RATING
                     </InputLabel>
-                    <Select labelId="rating" id="select" name="rating" defaultValue={rating} value={rating} onChange={(e) => setRating(Number(e.target.value))}>
+                    <Select
+                        labelId="rating"
+                        id="select"
+                        name="rating"
+                        defaultValue={rating}
+                        value={rating}
+                        onChange={(e) => setRating(parseFloat(e.target.value))}
+                    >
                         <MenuItem value="5">5</MenuItem>
                         <MenuItem value="4">4</MenuItem>
                         <MenuItem value="3">3</MenuItem>
