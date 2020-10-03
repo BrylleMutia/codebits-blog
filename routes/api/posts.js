@@ -10,11 +10,15 @@ const Post = require("../../models/Post");
 // @access  Public
 router.get("/", async (req, res) => {
     try {
-        const { page = 1, limit = 9 } = req.query;
+        const { page = 1, limit = 9, sortby = "date", order = -1 } = req.query;
+
+        // configure sorting options
+        const sortInfo = { };
+        sortInfo[sortby] = order;
 
         // execute query with page and limit values
         const posts = await Post.find()
-            .sort({ date: -1 })
+            .sort(sortInfo)
             .skip((page - 1) * limit)
             .limit(limit * 1)
             .exec();

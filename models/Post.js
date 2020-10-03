@@ -13,19 +13,17 @@ const postSchema = new Schema({
     },
     header: {
         type: String,
-        required: false,
+        required: true,
     },
-    rating: [
-        {
-            type: Number,
-            required: true,
-        },
-    ],
+    rating: {
+        type: Number,
+        required: true,
+    },
     category: [
         {
             type: String,
-            required: true
-        }
+            required: true,
+        },
     ],
     images: [
         {

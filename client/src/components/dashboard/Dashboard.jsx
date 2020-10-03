@@ -15,7 +15,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 
-import AddBoxIcon from "@material-ui/icons/AddBoxOutlined"
+import AddBoxIcon from "@material-ui/icons/AddBoxOutlined";
 
 const useStyles = makeStyles(() => ({
     inputLabel: {
@@ -24,11 +24,11 @@ const useStyles = makeStyles(() => ({
     },
     category: {
         marginTop: "1em",
-        flexGrow: "1"
+        flexGrow: "1",
     },
     submit: {
-        alignSelf: "flex-end"
-    }
+        alignSelf: "flex-end",
+    },
 }));
 
 const Dashboard = () => {
@@ -69,7 +69,7 @@ const Dashboard = () => {
                         required="true"
                         onChange={(e) => setTitle(e.target.value)}
                     />
-                    <TextField type="text" name="header" label="Header" multiline={true} onChange={(e) => setHeader(e.target.value)} />
+                    <TextField type="text" name="header" label="Header" required="true" multiline={true} onChange={(e) => setHeader(e.target.value)} />
                     <div className={flex_row}>
                         <div className={rating__wrapper}>
                             <InputLabel className={classes.inputLabel} shrink={true} id="rating">
@@ -82,7 +82,7 @@ const Dashboard = () => {
                                 defaultValue={rating}
                                 value={rating}
                                 fullWidth={true}
-                                onChange={(e) => setRating(parseFloat(e.target.value))}
+                                onChange={(e) => setRating(Number(e.target.value))}
                             >
                                 <MenuItem value="5">5</MenuItem>
                                 <MenuItem value="4">4</MenuItem>

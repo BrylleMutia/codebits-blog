@@ -11,7 +11,8 @@ const Card = ({ postDetails }) => {
                 <img src={`/${images[0]}`} alt="card-img" />
                 <div className={card__details}>
                     <h3>{title}</h3>
-                    <p>{header}</p>
+                    {/* limit header length to lessen inconsistency in card sizes */}
+                    <p>{header.length > 70 ? header.slice(0, 70) + "..." : header}</p>
                 </div>
             </div>
         </article>
