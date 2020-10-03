@@ -63,10 +63,24 @@ p {
     margin-left: var(--horizontal-space, 1em);
 }
 
+.horizontal_spacer_all > * {
+    margin-left: var(--horizontal-space, 1em);
+}
+
+.vertical_spacer > * + * {
+    margin-bottom: var(--horizontal-space, 1em);
+}
+
 .flex_row {
     display: flex;
     justify-content: var(--row-justify, start);
     align-items: var(--row-align, center);
+}
+
+.flex_column {
+    display: flex;
+    flex-direction: column;
+    justify-content: var(--row-justify, start);
 }
 
 .link {

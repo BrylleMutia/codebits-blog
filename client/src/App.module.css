@@ -59,6 +59,14 @@ p {
   margin-left: var(--horizontal-space, 1em);
 }
 
+.horizontal_spacer_all > * {
+  margin-left: var(--horizontal-space, 1em);
+}
+
+.vertical_spacer > * + * {
+  margin-bottom: var(--horizontal-space, 1em);
+}
+
 .flex_row {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -69,6 +77,19 @@ p {
   -webkit-box-align: var(--row-align, center);
       -ms-flex-align: var(--row-align, center);
           align-items: var(--row-align, center);
+}
+
+.flex_column {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: var(--row-justify, start);
+      -ms-flex-pack: var(--row-justify, start);
+          justify-content: var(--row-justify, start);
 }
 
 .link {

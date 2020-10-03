@@ -9,6 +9,8 @@ import cx from "classnames";
 import { withRouter, Link } from "react-router-dom";
 
 const Navbar = ({ location }) => {
+    const getLinkStyle = (pathname) => ({ borderBottomColor: location.pathname === pathname ? "var(--color-accent)" : "transparent" });
+
     return (
         <nav>
             <div style={{ "--row-justify": "space-between" }} className={cx(flex_row, side_padding, navbar)}>
@@ -22,18 +24,18 @@ const Navbar = ({ location }) => {
 
                 <div style={{ "--horizontal-space": "3em", "--row-align": "flex-end" }} className={cx(flex_row, horizontal_spacer, navbar__menu)}>
                     <div style={{ "--horizontal-space": "1.5em" }} className={cx(flex_row, horizontal_spacer, navbar__links)}>
-                        <Link to="/" style={{ borderBottomColor: location.pathname === "/" ? "var(--color-accent)" : "transparent" }} className={link} href="#">
+                        <Link to="/" style={getLinkStyle("/")} className={link} href="#">
                             Home
                         </Link>
-                        <Link to="/dashboard" className={link}>
+                        <Link to="/dashboard" style={getLinkStyle("/dashboard")} className={link}>
                             Dashboard
                         </Link>
-                        <Link to="/about" className={link}>
+                        <Link to="/about" style={getLinkStyle("/about")} className={link}>
                             About
                         </Link>
                     </div>
                 </div>
-                
+
                 <Search />
             </div>
         </nav>
