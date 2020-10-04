@@ -11,7 +11,6 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 
-
 const useStyles = makeStyles(() => ({
     typography: {
         marginTop: "2em",
@@ -20,7 +19,7 @@ const useStyles = makeStyles(() => ({
 
 const Articles = () => {
     const classes = useStyles();
-
+    
     const { isLoading, posts } = useSelector((state) => state.posts);
 
     // get all current categories in posts for switches
@@ -45,8 +44,8 @@ const Articles = () => {
                     <React.Fragment>
                         <Switches categories={categories} />
                         <div className={cards}>
-                            {posts.map((post) => (
-                                <Card postDetails={post} />
+                            {posts.map((post, index) => (
+                                <Card key={index} postDetails={post} />
                             ))}
                         </div>
                         <Pages />

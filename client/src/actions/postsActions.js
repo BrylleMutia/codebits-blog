@@ -3,7 +3,7 @@ import { returnErrors, clearErrors } from "./errorActions";
 import axios from "axios";
 
 // get posts from database
-export const getPosts = (page, sortby, order) => (dispatch) => {
+export const getPosts = (page, sortbyrating) => (dispatch) => {
     dispatch(setPostsLoading());
 
     const headers = {
@@ -11,7 +11,7 @@ export const getPosts = (page, sortby, order) => (dispatch) => {
     };
 
     axios
-        .get(`/api/posts?page=${page}&sortby=${sortby}&order=${order}`, headers)
+        .get(`/api/posts?page=${page}&sortbyrating=${sortbyrating}`, headers)
         .then((posts) =>
             dispatch({
                 type: GET_POSTS,

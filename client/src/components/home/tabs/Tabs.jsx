@@ -14,31 +14,27 @@ const Tabs = () => {
 
     const handleChangeTab = (tab) => {
         // configure sorting options
-        let sortby;
-        let order;
+        let sortbyrating;
         switch (tab) {
             case "Latest":
-                sortby = "date";
-                order = -1;
+                sortbyrating = 0;
                 break;
             case "Top Rated":
-                sortby = "rating";
-                order = 1;
+                sortbyrating = 1;
                 break;
             default:
-                sortby = "date";
-                order = -1;
+                sortbyrating = 0;
                 break;
         }
 
         dispatch(changeTab(tab));
-        dispatch(getPosts(1, sortby, order));
+        dispatch(getPosts(1, sortbyrating));
     };
 
     return (
         <div>
-            {tabs.map((tab) => (
-                <button className={tabs__button} style={{ backgroundColor: tab === currentTab && "#fff" }} onClick={() => handleChangeTab(tab)}>
+            {tabs.map((tab, index) => (
+                <button key={index} className={tabs__button} style={{ backgroundColor: tab === currentTab && "#fff" }} onClick={() => handleChangeTab(tab)}>
                     {tab}
                 </button>
             ))}

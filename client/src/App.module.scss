@@ -86,6 +86,7 @@ p {
 .link {
     color: var(--color-secondary);
     text-decoration: none;
+    outline: none;
 
     &:hover, &:focus {
         color: var(--color-accent);

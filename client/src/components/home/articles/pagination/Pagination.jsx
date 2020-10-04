@@ -17,9 +17,24 @@ const Pages = () => {
 
     const dispatch = useDispatch();
     const { currentPage, totalPages } = useSelector((state) => state.posts);
+    const currentTab = useSelector((state) => state.controls.tab);
 
     const paginationHandler = (event, page) => {
-        dispatch(getPosts(page));
+        // configure sorting options
+        let sortbyrating;
+        switch (currentTab) {
+            case "Latest":
+                sortbyrating = 0;
+                break;
+            case "Top Rated":
+                sortbyrating = 1;
+                break;
+            default:
+                sortbyrating = 0;
+                break;
+        }
+
+        dispatch(getPosts(page, sortbyrating));
     };
 
     return (

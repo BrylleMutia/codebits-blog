@@ -14,10 +14,8 @@ function App() {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(getPosts(1));
+        dispatch(getPosts(1, 0));
     }, []);
-
-    const posts = useSelector((state) => state.posts.posts);
 
     return (
         <Router>

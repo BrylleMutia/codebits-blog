@@ -10,12 +10,16 @@ const Post = require("../../models/Post");
 // @access  Public
 router.get("/", async (req, res) => {
     try {
-        const { page = 1, limit = 9, sortby = "date", order = -1 } = req.query;
-
+        const { page = 1, limit = 9, sortbyrating = 0 } = req.query;
+        
         // configure sorting options
+        // sort by date by default
+        // if rating = true, sort by rating
+        // order = -1 (descending) OR 1 (ascending)
         const sortInfo = { };
-        sortInfo[sortby] = order;
-
+        if(sortbyrating == 1) sortInfo["rating"] = -1;
+        sortInfo["date"] = -1;
+        
         // execute query with page and limit values
         const posts = await Post.find()
             .sort(sortInfo)

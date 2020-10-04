@@ -95,6 +95,7 @@ p {
 .link {
   color: var(--color-secondary);
   text-decoration: none;
+  outline: none;
 }
 
 .link:hover, .link:focus {
