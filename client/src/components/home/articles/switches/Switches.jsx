@@ -20,32 +20,27 @@ const Switches = ({ categories }) => {
         } else {
             dispatch(switchOn(switchName));
         }
+    };
 
-        // if one or more of the switches are activated, filter posts
-        const filteredPosts = posts.filter((post) => {
-            return post.category.filter((category) => {
-                if (activeSwitches.includes(category)) return post;
+    useEffect(() => {
+        return () => {
+            // if one or more of the switches are activated, filter posts
+            const newPosts = [];
+            posts.forEach((post) => {
+                post.category.forEach((category) => {
+                    if (activeSwitches.includes(category)) newPosts.push(post);
+                });
             });
-        });
 
-        console.log(filteredPosts);
-
-        // dispatch({
-        //     type: GET_POSTS,
-        //     payload: posts,
-        // });
-    };
-
-    // turn category switches on by default
-    // useEffect(() => {
-    //     categories.map((category) => handleToggleSwitch(category));
-    // }, []);
-
-    const getSwitchStyles = (switchName) => {
-        return {
-            backgroundColor: activeSwitches.includes(switchName) && "var(--color-accent)",
+            console.log(newPosts);
+            // dispatch({
+            //     type: GET_POSTS,
+            //     payload: newPosts
+            // })
         };
-    };
+    }, [activeSwitches]);
+
+    const getSwitchStyles = (switchName) => ({ backgroundColor: activeSwitches.includes(switchName) && "var(--color-accent)" });
 
     return (
         <div className={cx(horizontal_spacer, switches)}>
