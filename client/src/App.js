@@ -4,6 +4,7 @@ import { app, container } from "./App.module.css";
 import Navbar from "./components/navbar/Navbar";
 import Home from "./components/home/Home";
 import Dashboard from "./components/dashboard/Dashboard";
+import Post from "./components/post/Post";
 
 import { useDispatch, useSelector } from "react-redux";
 import { getPosts } from "./actions/postsActions";
@@ -23,8 +24,9 @@ function App() {
                 <Navbar />
                 <div className={container}>
                     <Switch>
-                        <Route exact={true} path="/" component={Home} />
-                        <Route path="/dashboard" component={Dashboard} />
+                        <Route exact path="/" component={Home} />
+                        <Route exact path="/dashboard" component={Dashboard} />
+                        <Route exact path="/post/:id" component={Post} />
                     </Switch>
                 </div>
             </div>

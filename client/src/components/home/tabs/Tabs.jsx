@@ -34,7 +34,12 @@ const Tabs = () => {
     return (
         <div>
             {tabs.map((tab, index) => (
-                <button key={index} className={tabs__button} style={{ backgroundColor: tab === currentTab && "#fff" }} onClick={() => handleChangeTab(tab)}>
+                <button
+                    key={index}
+                    className={tabs__button}
+                    style={{ backgroundColor: tab === currentTab && "#fff" }}
+                    onClick={() => handleChangeTab(tab)}
+                >
                     {tab}
                 </button>
             ))}

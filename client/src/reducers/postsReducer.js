@@ -1,18 +1,27 @@
-import { GET_POSTS, POSTS_LOADING, POSTS_LOADED } from "../actions/types";
+import { GET_POSTS, POSTS_LOADING, POSTS_LOADED, FETCH_POST } from "../actions/types";
 
 const initialState = {
     isLoading: false,
     posts: [],
+    currentPost: {
+        images: [],
+    },
     currentPage: 1,
-    totalPages: 0
+    totalPages: 0,
 };
 
 export default function (state = initialState, action) {
     switch (action.type) {
         case GET_POSTS:
             return {
-                ...state.isLoading,
-                ...action.payload
+                ...state,
+                ...action.payload,
+            };
+
+        case FETCH_POST:
+            return {
+                ...state,
+                currentPost: action.payload,
             };
 
         case POSTS_LOADING:

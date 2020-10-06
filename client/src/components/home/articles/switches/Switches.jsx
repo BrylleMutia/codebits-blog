@@ -22,23 +22,23 @@ const Switches = ({ categories }) => {
         }
     };
 
-    useEffect(() => {
-        return () => {
-            // if one or more of the switches are activated, filter posts
-            const newPosts = [];
-            posts.forEach((post) => {
-                post.category.forEach((category) => {
-                    if (activeSwitches.includes(category)) newPosts.push(post);
-                });
-            });
+    // useEffect(() => {
+    //     return () => {
+    //         // if one or more of the switches are activated, filter posts
+    //         const newPosts = [];
+    //         posts.forEach((post) => {
+    //             post.category.forEach((category) => {
+    //                 if (activeSwitches.includes(category)) newPosts.push(post);
+    //             });
+    //         });
 
-            console.log(newPosts);
-            // dispatch({
-            //     type: GET_POSTS,
-            //     payload: newPosts
-            // })
-        };
-    }, [activeSwitches]);
+    //         console.log(newPosts);
+    //         // dispatch({
+    //         //     type: GET_POSTS,
+    //         //     payload: newPosts
+    //         // })
+    //     };
+    // }, [activeSwitches]);
 
     const getSwitchStyles = (switchName) => ({ backgroundColor: activeSwitches.includes(switchName) && "var(--color-accent)" });
 

@@ -7,3 +7,4 @@ export const GET_ERRORS = "GET_ERRORS";
 export const CLEAR_ERRORS = "CLEAR_ERRORS";
 export const SWITCH_ON = "SWITCH_ON";
 export const SWITCH_OFF = "SWITCH_OFF";
+export const FETCH_POST = "FETCH_POST";

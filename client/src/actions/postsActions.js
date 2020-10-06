@@ -1,4 +1,4 @@
-import { GET_POSTS, POSTS_LOADED, POSTS_LOADING } from "./types";
+import { GET_POSTS, POSTS_LOADED, POSTS_LOADING, FETCH_POST } from "./types";
 import { returnErrors, clearErrors } from "./errorActions";
 import axios from "axios";
 
@@ -23,6 +23,7 @@ export const getPosts = (page, sortbyrating) => (dispatch) => {
     dispatch(setPostsLoaded());
 };
 
+// add new post to database
 export const addPost = (postDetails) => (dispatch) => {
     dispatch(setPostsLoading());
 
@@ -36,6 +37,27 @@ export const addPost = (postDetails) => (dispatch) => {
         .post("/api/posts", body, headers)
         .then(() => dispatch(getPosts(1)))
         .catch((err) => returnErrors(err.response.data, err.response.status));
+};
+
+// get details of currently selected post
+export const fetchPost = (postId) => (dispatch) => {
+    dispatch(setPostsLoading());
+
+    const headers = {
+        "Content-Type": "application/json",
+    };
+
+    axios
+        .get(`/api/posts/${postId}`, headers)
+        .then((post) =>
+            dispatch({
+                type: FETCH_POST,
+                payload: post.data,
+            })
+        )
+        .catch((err) => returnErrors(err.response.data, err.response.status));
+
+    dispatch(setPostsLoaded());
 };
 
 export const setPostsLoading = () => ({

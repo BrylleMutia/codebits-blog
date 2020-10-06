@@ -11,15 +11,15 @@ const Post = require("../../models/Post");
 router.get("/", async (req, res) => {
     try {
         const { page = 1, limit = 9, sortbyrating = 0 } = req.query;
-        
+
         // configure sorting options
         // sort by date by default
         // if rating = true, sort by rating
         // order = -1 (descending) OR 1 (ascending)
-        const sortInfo = { };
-        if(sortbyrating == 1) sortInfo["rating"] = -1;
+        const sortInfo = {};
+        if (sortbyrating == 1) sortInfo["rating"] = -1;
         sortInfo["date"] = -1;
-        
+
         // execute query with page and limit values
         const posts = await Post.find()
             .sort(sortInfo)
@@ -27,12 +27,19 @@ router.get("/", async (req, res) => {
             .limit(limit * 1)
             .exec();
 
+        // filter posts to only return the first image for thumbnail
+        // faster fetch of posts
+        const newPosts = posts.map((post) => {
+            post.images = post.images[0];
+            return post;
+        });
+
         // get total number of posts
         const count = await Post.countDocuments();
 
         // return response with posts, total pages and current page
         res.json({
-            posts,
+            posts: newPosts,
             totalPages: Math.ceil(count / limit),
             currentPage: Number(page),
         });
@@ -76,6 +83,18 @@ router.post("/", upload.array("images", 20), (req, res, next) => {
             .catch((err) => res.status(400).json(err));
     });
 });
+
+// @route   GET /api/posts/:id
+// @desc    Get details of a specific post
+// @access  Public
+router.get("/:postId", (req, res) => {
+    const { postId } = req.params;
+
+    Post.findById(postId)
+        .then((post) => res.json(post))
+        .catch((err) => res.status(400).json({ msg: "Can't find requested post", err }));
+});
+
 
 router.delete("/:postId", (req, res) => {
     Post.findById(req.params.postId).then((post) => {
