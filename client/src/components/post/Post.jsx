@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import { post } from "./Post.module.css";
-import { loader } from "../../App.module.css";
+import { post, post__img, post__category } from "./Post.module.css";
+import { loader, flex_column } from "../../App.module.css";
 
 import { fetchPost } from "../../actions/postsActions";
 import { useSelector, useDispatch } from "react-redux";
@@ -30,7 +30,7 @@ const Post = ({ match }) => {
 
     return (
         <article>
-            <div className={post}>
+            <div className={flex_column}>
                 {isLoading ? (
                     <div className={loader}>
                         <CircularProgress />
@@ -38,12 +38,14 @@ const Post = ({ match }) => {
                     </div>
                 ) : (
                     <React.Fragment>
-                        <p>{title}</p>
-                        <p>{header}</p>
-                        <p>{category}</p>
-                        <p>{rating}</p>
+                        <div className={post}>
+                            <Typography variant="h4">{title}</Typography>
+                            <Typography variant="subtitle1">{header}</Typography>
+                            <div className={post__category}>{category}</div>
+                            <Typography>{rating}</Typography>
+                        </div>
                         {images.map((image, index) => (
-                            <img key={index} src={`/${image}`} alt={`img-${title}`} />
+                            <img className={post__img} key={index} src={`/${image}`} alt={`img-${title}`} />
                         ))}
                     </React.Fragment>
                 )}

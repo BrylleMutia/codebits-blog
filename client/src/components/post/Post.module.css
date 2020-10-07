@@ -1,1 +1,17 @@
-/* No CSS *//*# sourceMappingURL=Post.module.css.map */
+.post {
+  width: 100%;
+  padding: 3em;
+  padding-left: 5em;
+}
+
+.post__img {
+  width: 60%;
+}
+
+.post__category {
+  background: var(--color-default);
+  padding: 0.3em 1.8em;
+  border-radius: 20px;
+  color: #000;
+}
+/*# sourceMappingURL=Post.module.css.map */

@@ -2,7 +2,7 @@ import React from "react";
 import { articles, cards } from "./Articles.module.css";
 import { loader } from "../../../App.module.css";
 
-import Card from "./card/Card";
+import ArticleCard from "./card/Card";
 import Switches from "./switches/Switches";
 import Pages from "./pagination/Pagination";
 
@@ -20,7 +20,7 @@ const useStyles = makeStyles(() => ({
 
 const Articles = () => {
     const classes = useStyles();
-    
+
     const { isLoading, posts } = useSelector((state) => state.posts);
 
     // get all current categories in posts for switches
@@ -46,7 +46,7 @@ const Articles = () => {
                         <Switches categories={categories} />
                         <div className={cards}>
                             {posts.map((post, index) => (
-                                <Card key={index} postDetails={post} />
+                                <ArticleCard key={index} postDetails={post} />
                             ))}
                         </div>
                         <Pages />

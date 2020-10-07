@@ -11,6 +11,8 @@ import { getPosts } from "./actions/postsActions";
 
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
+import Paper from "@material-ui/core/Paper";
+
 function App() {
     const dispatch = useDispatch();
 
@@ -23,11 +25,13 @@ function App() {
             <div className={app}>
                 <Navbar />
                 <div className={container}>
-                    <Switch>
-                        <Route exact path="/" component={Home} />
-                        <Route exact path="/dashboard" component={Dashboard} />
-                        <Route exact path="/post/:id" component={Post} />
-                    </Switch>
+                    <Paper variant="elevation" elevation={2}>
+                        <Switch>
+                            <Route exact path="/" component={Home} />
+                            <Route exact path="/dashboard" component={Dashboard} />
+                            <Route exact path="/post/:id" component={Post} />
+                        </Switch>
+                    </Paper>
                 </div>
             </div>
         </Router>

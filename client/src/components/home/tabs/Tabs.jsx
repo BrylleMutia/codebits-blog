@@ -6,6 +6,9 @@ import { getPosts } from "../../../actions/postsActions";
 
 import { useSelector, useDispatch } from "react-redux";
 
+import { makeStyles } from "@material-ui/core/styles";
+import Paper from "@material-ui/core/Paper";
+
 const Tabs = () => {
     const [tabs] = useState(["Latest", "Top Rated"]);
 
