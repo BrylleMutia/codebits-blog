@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import { post, post__img, post__category } from "./Post.module.css";
-import { loader, flex_column } from "../../App.module.css";
+import { post, post__img, post__category, post__layout } from "./Post.module.css";
+import { loader, flex_column, vertical_spacer_all } from "../../App.module.css";
 
 import { fetchPost } from "../../actions/postsActions";
 import { useSelector, useDispatch } from "react-redux";
@@ -9,9 +9,23 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 
+import cx from "classnames";
+import Rating from "./rating/Rating";
+
 const useStyles = makeStyles(() => ({
     typography: {
         marginTop: "2em",
+    },
+    marginBottom: {
+        marginBottom: "1em",
+    },
+    marginTop: {
+        marginTop: "1em",
+    },
+    header: {
+        borderLeft: "5px solid #39ace7",
+        padding: "0.5em",
+        paddingLeft: "1em",
     },
 }));
 
@@ -39,10 +53,16 @@ const Post = ({ match }) => {
                 ) : (
                     <React.Fragment>
                         <div className={post}>
-                            <Typography variant="h4">{title}</Typography>
-                            <Typography variant="subtitle1">{header}</Typography>
-                            <div className={post__category}>{category}</div>
-                            <Typography>{rating}</Typography>
+                            <Typography className={cx(classes.marginBottom, classes.header)} variant="h4">
+                                {title}
+                            </Typography>
+                            <Typography className={classes.marginBottom} variant="subtitle1">
+                                {header}
+                            </Typography>
+                            <div className={post__layout}>
+                                <span className={post__category}>{category}</span>
+                                <span style={{ display: "flex" }}><p style={{ marginRight: "1em", "marginTop": "0.2em" }}>RATING: </p><Rating rating={rating} /></span>
+                            </div>
                         </div>
                         {images.map((image, index) => (
                             <img className={post__img} key={index} src={`/${image}`} alt={`img-${title}`} />

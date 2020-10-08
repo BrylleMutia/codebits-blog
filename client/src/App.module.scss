@@ -41,7 +41,7 @@ p {
 
 .app {
     width: 100%;
-    max-width: 1280px;
+    max-width: 1420px;
     margin: 0 auto;
 }
 
@@ -68,7 +68,11 @@ p {
 }
 
 .vertical_spacer > * + * {
-    margin-bottom: var(--horizontal-space, 1em);
+    margin-bottom: var(--vertical-space, 1em);
+}
+
+.vertical_spacer_all > * {
+    margin-bottom: var(--vertical-space, 1em);
 }
 
 .flex_row {

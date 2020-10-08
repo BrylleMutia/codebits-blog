@@ -13,4 +13,10 @@
         border-radius: 20px;
         color: #000;
     }
+
+    &__layout {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+    }
 }
