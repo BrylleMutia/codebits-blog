@@ -33,6 +33,8 @@ router.post("/", (req, res) => {
             name,
             email,
             password,
+            saved: [],
+            rated: []
         });
 
         // generate salt and hash for user password
@@ -52,6 +54,8 @@ router.post("/", (req, res) => {
                                 _id: user.id,
                                 name: user.name,
                                 email: user.email,
+                                saved: user.saved,
+                                rated: user.rated
                             },
                         });
                     });

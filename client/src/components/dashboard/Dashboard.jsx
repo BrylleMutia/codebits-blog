@@ -59,7 +59,7 @@ const Dashboard = () => {
         <main>
             <div className={cx(container, side_padding, dashboard)}>
                 <Typography variant="h5">Welcome, Brylle! What's new?</Typography>
-                <form className={cx(flex_column, vertical_spacer)} method="POST" action="/api/posts" enctype="multipart/form-data">
+                <form style={{ "--column-align": "stretch" }} className={cx(flex_column, vertical_spacer)} method="POST" action="/api/posts" enctype="multipart/form-data">
                     <TextField
                         type="text"
                         name="title"

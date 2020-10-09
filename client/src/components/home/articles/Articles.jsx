@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { articles, cards } from "./Articles.module.css";
 import { loader } from "../../../App.module.css";
 
@@ -8,9 +8,10 @@ import Pages from "./pagination/Pagination";
 
 import { useSelector } from "react-redux";
 
+import { makeStyles } from "@material-ui/core/styles";
+import { Alert } from "@material-ui/lab";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles(() => ({
     typography: {
@@ -21,7 +22,10 @@ const useStyles = makeStyles(() => ({
 const Articles = () => {
     const classes = useStyles();
 
+    const [showAlert, setAlert] = useState(false);
+
     const { isLoading, posts } = useSelector((state) => state.posts);
+    const { msg } = useSelector((state) => state.error.msg);
 
     // get all current categories in posts for switches
     // remove duplicates
@@ -32,6 +36,12 @@ const Articles = () => {
             if (!categories.includes(cat)) categories.push(cat);
         });
     });
+
+    // show alert for 5 seconds
+    const handleSetAlert = () => {
+        setAlert(true);
+        setTimeout(() => setAlert(false), 5000);
+    };
 
     return (
         <main>
@@ -46,12 +56,20 @@ const Articles = () => {
                         <Switches categories={categories} />
                         <div className={cards}>
                             {posts.map((post, index) => (
-                                <ArticleCard key={index} postDetails={post} />
+                                <ArticleCard key={index} handleSetAlert={handleSetAlert} postDetails={post} />
                             ))}
                         </div>
                         <Pages />
                     </React.Fragment>
                 )}
+
+                {/* display error message */}
+                <div style={{ position: "fixed", bottom: "5vh" }}>
+                {showAlert && (
+                    <Alert color="error" variant="standard">
+                        {msg}
+                    </Alert>
+                )}</div>
             </div>
         </main>
     );

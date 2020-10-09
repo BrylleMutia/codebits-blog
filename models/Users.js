@@ -21,10 +21,15 @@ const userSchema = new Schema({
         type: Date,
         default: Date.now,
     },
-    ratings: [
+    saved: [
         {
-            type: Number,
-            required: false,
+            type: String,
+        },
+    ],
+    rated: [
+        {
+            postId: { type: String },
+            rating: { type: Number },
         },
     ],
 });

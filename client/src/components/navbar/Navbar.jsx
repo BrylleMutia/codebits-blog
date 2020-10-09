@@ -4,11 +4,29 @@ import { side_padding, flex_row, horizontal_spacer, link } from "../../App.modul
 
 import logo from "../images/logo.png";
 import Search from "./search/Search";
+import RegisterModal from "./registerModal/RegisterModal";
+import LoginModal from "./loginModal/LoginModal";
+import LogoutModal from "./logoutModal/LogoutModal";
 
 import cx from "classnames";
 import { withRouter, Link } from "react-router-dom";
 
+import { makeStyles } from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
+
+import { useSelector } from "react-redux";
+
+const useStyles = makeStyles(() => ({
+    marginRight: {
+        marginRight: "1em",
+    },
+}));
+
 const Navbar = ({ location }) => {
+    const classes = useStyles();
+
+    const { isAuthenticated } = useSelector((state) => state.auth);
+
     const getLinkStyle = (pathname) => ({ borderBottomColor: location.pathname === pathname ? "var(--color-accent)" : "transparent" });
 
     return (
@@ -30,13 +48,22 @@ const Navbar = ({ location }) => {
                         <Link to="/dashboard" style={getLinkStyle("/dashboard")} className={link}>
                             Dashboard
                         </Link>
-                        <Link to="/about" style={getLinkStyle("/about")} className={link}>
-                            About
-                        </Link>
                     </div>
                 </div>
 
                 <Search />
+
+                <div className={flex_row}>
+                    {/* dynamic buttons depending if user is existent */}
+                    {!isAuthenticated ? (
+                        <React.Fragment>
+                            <LoginModal />
+                            <RegisterModal />
+                        </React.Fragment>
+                    ) : (
+                        <LogoutModal />
+                    )}
+                </div>
             </div>
         </nav>
     );

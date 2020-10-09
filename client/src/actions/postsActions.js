@@ -60,6 +60,8 @@ export const fetchPost = (postId) => (dispatch) => {
     dispatch(setPostsLoaded());
 };
 
+
+
 export const setPostsLoading = () => ({
     type: POSTS_LOADING,
 });

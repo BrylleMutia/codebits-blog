@@ -8,6 +8,7 @@ import Post from "./components/post/Post";
 
 import { useDispatch, useSelector } from "react-redux";
 import { getPosts } from "./actions/postsActions";
+import { loadUser } from "./actions/authActions";
 
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
@@ -18,6 +19,10 @@ function App() {
 
     useEffect(() => {
         dispatch(getPosts(1, 0));
+    }, []);
+
+    useEffect(() => {
+        dispatch(loadUser()); // check for user auth everytime the app updates
     }, []);
 
     return (

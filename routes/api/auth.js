@@ -1,11 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const brycpt = require("bcryptjs");
+const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const config = require("config");
 
 const User = require("../../models/Users");
 const auth = require("../../middleware/auth");
-const { route } = require("./users");
 
 // @route   POST api/auth
 // @desc    Login existing user
@@ -35,6 +35,8 @@ router.post("/", (req, res) => {
                         _id: user._id,
                         name: user.name,
                         email: user.email,
+                        saved: user.saved,
+                        rated: user.rated,
                     },
                 });
             });
