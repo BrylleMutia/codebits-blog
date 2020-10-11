@@ -34,7 +34,7 @@ router.post("/", (req, res) => {
             email,
             password,
             saved: [],
-            rated: []
+            rated: [],
         });
 
         // generate salt and hash for user password
@@ -55,7 +55,7 @@ router.post("/", (req, res) => {
                                 name: user.name,
                                 email: user.email,
                                 saved: user.saved,
-                                rated: user.rated
+                                rated: user.rated,
                             },
                         });
                     });
@@ -63,6 +63,28 @@ router.post("/", (req, res) => {
             });
         });
     });
+});
+
+// @route   /api/users/userId/savepost
+// @desc    Save post
+// @access  Public
+router.patch("/:userId/savepost", (req, res) => {
+    const { postId } = req.query;
+    const { userId } = req.params;
+
+    User.findById(userId)
+        .then((user) => {
+            if (user.saved.includes(postId)) {
+                // if postId is already in saved, remove it instead of adding
+                user.saved = user.saved.filter((id) => id !== postId);
+                user.save().then((updatedUser) => res.json(updatedUser.saved));
+            } else {
+                // add post to saved
+                user.saved.unshift(postId);
+                user.save().then((updatedUser) => res.json(updatedUser.saved));
+            }
+        })
+        .catch((err) => res.status(400).json({ msg: "Couldn't find user", err }));
 });
 
 module.exports = router;

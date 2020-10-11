@@ -36,7 +36,7 @@ export const addPost = (postDetails) => (dispatch) => {
     axios
         .post("/api/posts", body, headers)
         .then(() => dispatch(getPosts(1)))
-        .catch((err) => returnErrors(err.response.data, err.response.status));
+        .catch((err) => dispatch(returnErrors(err.response.data, err.response.status)));
 };
 
 // get details of currently selected post
@@ -55,11 +55,10 @@ export const fetchPost = (postId) => (dispatch) => {
                 payload: post.data,
             })
         )
-        .catch((err) => returnErrors(err.response.data, err.response.status));
+        .catch((err) => dispatch(returnErrors(err.response.data, err.response.status)));
 
     dispatch(setPostsLoaded());
 };
-
 
 
 export const setPostsLoading = () => ({

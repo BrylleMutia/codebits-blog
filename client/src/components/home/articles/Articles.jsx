@@ -64,7 +64,7 @@ const Articles = () => {
                 )}
 
                 {/* display error message */}
-                <div style={{ position: "fixed", bottom: "5vh" }}>
+                <div style={{ position: "fixed", bottom: "5vh", zIndex: "99" }}>
                 {showAlert && (
                     <Alert color="error" variant="standard">
                         {msg}

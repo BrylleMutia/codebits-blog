@@ -1,4 +1,14 @@
-import { USER_LOADED, USER_LOADING, AUTH_ERROR, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT_SUCCESS, REGISTER_SUCCESS, REGISTER_FAIL } from "./types";
+import {
+    USER_LOADED,
+    USER_LOADING,
+    AUTH_ERROR,
+    LOGIN_SUCCESS,
+    LOGIN_FAIL,
+    LOGOUT_SUCCESS,
+    REGISTER_SUCCESS,
+    REGISTER_FAIL,
+    SAVE_POST,
+} from "./types";
 import { returnErrors } from "./errorActions";
 import axios from "axios";
 
@@ -84,6 +94,23 @@ export const loadUser = () => (dispatch, getState) => {
                 type: AUTH_ERROR,
             });
         });
+};
+
+// save post
+export const savePost = (userId, postId) => (dispatch) => {
+    const headers = {
+        "Content-Type": "application/json",
+    };
+
+    axios
+        .patch(`/api/users/${userId}/savepost?postId=${postId}`, headers)
+        .then((updatedSavedPosts) =>
+            dispatch({
+                type: SAVE_POST,
+                payload: updatedSavedPosts.data,
+            })
+        )
+        .catch((err) => dispatch(returnErrors(err.response.data, err.response.status)));
 };
 
 export const tokenConfig = () => {

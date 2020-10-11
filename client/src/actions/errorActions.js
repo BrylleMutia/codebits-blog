@@ -1,11 +1,12 @@
 import { GET_ERRORS, CLEAR_ERRORS } from "./types";
 
 // error logging state
-export const returnErrors = (msg, status) => ({
+export const returnErrors = (msg, status, id = null) => ({
     type: GET_ERRORS,
     payload: {
         msg,
-        status
+        status,
+        id
     },
 });
 

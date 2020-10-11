@@ -10,7 +10,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 
 const Tabs = () => {
-    const [tabs] = useState(["Latest", "Top Rated"]);
+    const [tabs] = useState(["Latest", "Top Rated", "Saved"]);
 
     const dispatch = useDispatch();
     const currentTab = useSelector((state) => state.controls.tab);
@@ -24,6 +24,9 @@ const Tabs = () => {
                 break;
             case "Top Rated":
                 sortbyrating = 1;
+                break;
+            case "Saved":
+                
                 break;
             default:
                 sortbyrating = 0;
