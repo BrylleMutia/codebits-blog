@@ -4,7 +4,7 @@ const brcrypt = require("bcryptjs");
 const config = require("config");
 const jwt = require("jsonwebtoken");
 
-const User = require("../../models/Users");
+const { User } = require("../../models/schemaIndex");
 
 // @route   /api/users
 // @desc    Get all registered users
@@ -85,6 +85,30 @@ router.patch("/:userId/savepost", (req, res) => {
             }
         })
         .catch((err) => res.status(400).json({ msg: "Couldn't find user", err }));
+});
+
+// @route   /api/users/userId/savedposts
+// @desc    GET all user's saved posts
+// @access  Public
+router.get("/:userId/savedposts", (req, res) => {
+    const { userId } = req.params;
+
+    // map through all ids on saved posts
+    // then find that post on all of the posts collection
+    // put found saved post to a new array then send back to client
+    User.findById(userId)
+        .populate("saved")
+        .then((user) => res.json(user.saved))
+        .catch((err) => console.log(err));
+    // .then((user) => {
+    // const savedPosts = user.saved.map((savedPostId) =>
+    //     Post.findById(savedPostId)
+    //         .then((foundPost) => foundPost)
+    //         .catch((err) => res.status(400).json({ msg: "Saved post not found", err }))
+    // );
+    // res.json(savedPosts);
+    // })
+    // .catch((err) => res.status(400).json({ msg: "Cannot find User", err }));
 });
 
 module.exports = router;

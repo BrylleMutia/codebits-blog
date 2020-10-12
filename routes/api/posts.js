@@ -3,7 +3,7 @@ const router = express.Router();
 
 const upload = require("../../middleware/upload");
 
-const Post = require("../../models/Post");
+const { Post } = require("../../models/schemaIndex");
 
 // @route   GET api/posts
 // @desc    Get all posts with images

@@ -9,6 +9,7 @@ export const SWITCH_ON = "SWITCH_ON";
 export const SWITCH_OFF = "SWITCH_OFF";
 export const FETCH_POST = "FETCH_POST";
 export const SAVE_POST = "SAVE_POST";
+export const GET_SAVED = "GET_SAVED";
 
 // auth / user actions
 export const USER_LOADING = "USER_LOADING";

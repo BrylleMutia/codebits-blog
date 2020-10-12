@@ -8,8 +8,10 @@ import {
     REGISTER_SUCCESS,
     REGISTER_FAIL,
     SAVE_POST,
+    GET_SAVED
 } from "./types";
 import { returnErrors } from "./errorActions";
+import { setPostsLoaded, setPostsLoading } from "./postsActions";
 import axios from "axios";
 
 // register user
@@ -111,6 +113,27 @@ export const savePost = (userId, postId) => (dispatch) => {
             })
         )
         .catch((err) => dispatch(returnErrors(err.response.data, err.response.status)));
+};
+
+// get saved posts
+export const getSaved = (userId) => (dispatch) => {
+    dispatch(setPostsLoading());
+
+    const headers = {
+        "Content-Type": "application/json",
+    };
+
+    axios
+        .get(`/api/users/${userId}/savedposts`, headers)
+        .then((savedPosts) =>
+            dispatch({
+                type: GET_SAVED,
+                payload: savedPosts.data,
+            })
+        )
+        .catch((err) => dispatch(returnErrors(err.response.data, err.response.status)));
+
+    dispatch(setPostsLoaded());
 };
 
 export const tokenConfig = () => {

@@ -3,6 +3,7 @@ import { tabs__button } from "./Tabs.module.css";
 
 import { changeTab } from "../../../actions/controlActions";
 import { getPosts } from "../../../actions/postsActions";
+import { getSaved } from "../../../actions/authActions";
 
 import { useSelector, useDispatch } from "react-redux";
 
@@ -14,6 +15,7 @@ const Tabs = () => {
 
     const dispatch = useDispatch();
     const currentTab = useSelector((state) => state.controls.tab);
+    const _id = useSelector((state) => state.auth.user._id);
 
     const handleChangeTab = (tab) => {
         // configure sorting options
@@ -21,12 +23,14 @@ const Tabs = () => {
         switch (tab) {
             case "Latest":
                 sortbyrating = 0;
+                dispatch(getPosts(1, sortbyrating));
                 break;
             case "Top Rated":
                 sortbyrating = 1;
+                dispatch(getPosts(1, sortbyrating));
                 break;
             case "Saved":
-                
+                dispatch(getSaved(_id));
                 break;
             default:
                 sortbyrating = 0;
@@ -34,7 +38,6 @@ const Tabs = () => {
         }
 
         dispatch(changeTab(tab));
-        dispatch(getPosts(1, sortbyrating));
     };
 
     return (

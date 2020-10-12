@@ -1,4 +1,4 @@
-import { GET_POSTS, POSTS_LOADING, POSTS_LOADED, FETCH_POST } from "../actions/types";
+import { GET_POSTS, POSTS_LOADING, POSTS_LOADED, FETCH_POST, GET_SAVED } from "../actions/types";
 
 const initialState = {
     isLoading: false,
@@ -22,6 +22,12 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 currentPost: action.payload,
+            };
+
+        case GET_SAVED:
+            return {
+                ...state,
+                posts: action.payload,
             };
 
         case POSTS_LOADING:
