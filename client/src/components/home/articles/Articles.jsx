@@ -13,10 +13,15 @@ import { Alert } from "@material-ui/lab";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Typography from "@material-ui/core/Typography";
 
+import FavoriteIcon from "@material-ui/icons/Favorite";
+
 const useStyles = makeStyles(() => ({
-    typography: {
+    marginTop: {
         marginTop: "2em",
     },
+    marginBottom: {
+        marginBottom: "3em"
+    }
 }));
 
 const Articles = () => {
@@ -49,7 +54,7 @@ const Articles = () => {
                 {isLoading ? (
                     <div className={loader}>
                         <CircularProgress />
-                        <Typography className={classes.typography}>Loading posts...</Typography>
+                        <Typography className={classes.marginTop}>Loading posts...</Typography>
                     </div>
                 ) : (
                     <React.Fragment>
@@ -58,6 +63,9 @@ const Articles = () => {
                             {posts.map((post, index) => (
                                 <ArticleCard key={index} handleSetAlert={handleSetAlert} postDetails={post} />
                             ))}
+
+                            {/* DISPLAY MSG IF SAVED POSTS IS EMPTY */}
+                            <Typography style={{ display: posts.length > 0 && "none" }} className={classes.marginBottom}>No saved posts. </Typography>
                         </div>
                         <Pages />
                     </React.Fragment>
@@ -65,11 +73,12 @@ const Articles = () => {
 
                 {/* display error message */}
                 <div style={{ position: "fixed", bottom: "5vh", zIndex: "99" }}>
-                {showAlert && (
-                    <Alert color="error" variant="standard">
-                        {msg}
-                    </Alert>
-                )}</div>
+                    {showAlert && (
+                        <Alert color="error" variant="standard">
+                            {msg}
+                        </Alert>
+                    )}
+                </div>
             </div>
         </main>
     );

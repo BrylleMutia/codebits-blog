@@ -8,13 +8,6 @@
   width: 60%;
 }
 
-.post__category {
-  background: var(--color-default);
-  padding: 0.3em 1.8em;
-  border-radius: 20px;
-  color: #000;
-}
-
 .post__layout {
   display: -webkit-box;
   display: -ms-flexbox;

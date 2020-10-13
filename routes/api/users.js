@@ -76,7 +76,9 @@ router.patch("/:userId/savepost", (req, res) => {
         .then((user) => {
             if (user.saved.includes(postId)) {
                 // if postId is already in saved, remove it instead of adding
-                user.saved = user.saved.filter((id) => id !== postId);
+                // find index of postId then remove from saved posts array
+                // user.saved = user.saved.filter((id) => id !== postId);   // filter doesnt work, idk why
+                user.saved.splice(user.saved.indexOf(postId), 1);
                 user.save().then((updatedUser) => res.json(updatedUser.saved));
             } else {
                 // add post to saved
@@ -93,22 +95,11 @@ router.patch("/:userId/savepost", (req, res) => {
 router.get("/:userId/savedposts", (req, res) => {
     const { userId } = req.params;
 
-    // map through all ids on saved posts
-    // then find that post on all of the posts collection
-    // put found saved post to a new array then send back to client
+    // map through all ids on saved posts then populate posts property
     User.findById(userId)
         .populate("saved")
         .then((user) => res.json(user.saved))
-        .catch((err) => console.log(err));
-    // .then((user) => {
-    // const savedPosts = user.saved.map((savedPostId) =>
-    //     Post.findById(savedPostId)
-    //         .then((foundPost) => foundPost)
-    //         .catch((err) => res.status(400).json({ msg: "Saved post not found", err }))
-    // );
-    // res.json(savedPosts);
-    // })
-    // .catch((err) => res.status(400).json({ msg: "Cannot find User", err }));
+        .catch((err) => res.status(400).json({ msg: "Could not find saved post", err }));
 });
 
 module.exports = router;

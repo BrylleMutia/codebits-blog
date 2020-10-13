@@ -38,7 +38,9 @@ const Pages = () => {
     };
 
     return (
+        // hide pagination if in Saved posts tab
         <Pagination
+            style={{ display: currentTab === "Saved" && "none" }}
             className={classes.pages}
             color="primary"
             count={totalPages}

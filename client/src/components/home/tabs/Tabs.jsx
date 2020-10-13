@@ -11,26 +11,22 @@ import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 
 const Tabs = () => {
-    const [tabs] = useState(["Latest", "Top Rated", "Saved"]);
+    const [tabs] = useState(["Latest", "Top Rated"]);
 
     const dispatch = useDispatch();
     const currentTab = useSelector((state) => state.controls.tab);
     const _id = useSelector((state) => state.auth.user._id);
+    const { isAuthenticated } = useSelector(state => state.auth);
 
     const handleChangeTab = (tab) => {
-        // configure sorting options
+        // configure sorting and post display options
         let sortbyrating;
         switch (tab) {
             case "Latest":
                 sortbyrating = 0;
-                dispatch(getPosts(1, sortbyrating));
                 break;
             case "Top Rated":
                 sortbyrating = 1;
-                dispatch(getPosts(1, sortbyrating));
-                break;
-            case "Saved":
-                dispatch(getSaved(_id));
                 break;
             default:
                 sortbyrating = 0;
@@ -38,6 +34,12 @@ const Tabs = () => {
         }
 
         dispatch(changeTab(tab));
+        dispatch(getPosts(1, sortbyrating));
+    };
+
+    const handleGetSavedPosts = () => {
+        dispatch(getSaved(_id));
+        dispatch(changeTab("Saved"));
     };
 
     return (
@@ -52,6 +54,16 @@ const Tabs = () => {
                     {tab}
                 </button>
             ))}
+
+            {/* FIXED SAVED POSTS BUTTON */}
+            <button
+                key="saved-posts"
+                className={tabs__button}
+                style={{ backgroundColor: "Saved" === currentTab && "#fff", display: !isAuthenticated && "none" }}
+                onClick={handleGetSavedPosts}
+            >
+                Saved
+            </button>
         </div>
     );
 };

@@ -4,7 +4,6 @@ import { card, card__details, card__rating, card__img } from "./Card.module.css"
 import { Link } from "react-router-dom";
 
 import { makeStyles } from "@material-ui/core/styles";
-import red from "@material-ui/core/colors/red";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardActions from "@material-ui/core/CardActions";
@@ -17,8 +16,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { GET_ERRORS } from "../../../../actions/types";
 import { savePost } from "../../../../actions/authActions";
 
-import FavoriteIcon from "@material-ui/icons/Favorite";
 import ShareIcon from "@material-ui/icons/Share";
+import BookmarkIcon from "@material-ui/icons/Bookmark";
+import BookmarkBorderIcon from "@material-ui/icons/BookmarkBorder";
 
 const useStyles = makeStyles(() => ({
     root: {
@@ -61,13 +61,6 @@ const ArticleCard = ({ postDetails, handleSetAlert }) => {
         }
     };
 
-    // dynamic color of save button
-    const getSavedStyle = () => {
-        if (user) {
-            if (user.saved.includes(_id)) return { color: "var(--color-saved)" };
-        } else return null;
-    };
-
     return (
         <article>
             <Card className={classes.root}>
@@ -95,8 +88,8 @@ const ArticleCard = ({ postDetails, handleSetAlert }) => {
                         </Button>
                     </Link>
                     <div className={classes.icons}>
-                        <IconButton style={getSavedStyle()} aria-label="add to favorites" onClick={() => handleSavePost()}>
-                            <FavoriteIcon />
+                        <IconButton aria-label="add to favorites" onClick={() => handleSavePost()}>
+                            {user.saved.includes(_id) ? <BookmarkIcon /> : <BookmarkBorderIcon />}
                         </IconButton>
                         <IconButton aria-label="share">
                             <ShareIcon />

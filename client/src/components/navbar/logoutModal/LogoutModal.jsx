@@ -4,6 +4,8 @@ import { Button, Dialog, DialogActions, DialogContent, DialogTitle, makeStyles, 
 
 import { useDispatch } from "react-redux";
 import { logout } from "../../../actions/authActions";
+import { changeTab } from "../../../actions/controlActions";
+import { getPosts } from "../../../actions/postsActions";
 
 const useStyles = makeStyles({
     addBtn: {
@@ -15,8 +17,8 @@ const useStyles = makeStyles({
         justifyContent: "center",
     },
     logout: {
-        marginLeft: "3rem"
-    }
+        marginLeft: "3rem",
+    },
 });
 
 function LogoutModal() {
@@ -27,7 +29,10 @@ function LogoutModal() {
     const [isOpen, setIsOpen] = useState(false);
 
     const handleLogoutUser = (e) => {
+        // revert to default view upon logout
         e.preventDefault();
+        dispatch(changeTab("Latest"));
+        dispatch(getPosts(1, 0));
         dispatch(logout());
     };
 

@@ -2,6 +2,9 @@ import React, { useEffect } from "react";
 import { post, post__img, post__category, post__layout } from "./Post.module.css";
 import { loader, flex_column, vertical_spacer_all } from "../../App.module.css";
 
+import Rating from "./rating/Rating";
+import Category from "./category/Category";
+
 import { fetchPost } from "../../actions/postsActions";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -10,7 +13,6 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 
 import cx from "classnames";
-import Rating from "./rating/Rating";
 
 const useStyles = makeStyles(() => ({
     typography: {
@@ -60,8 +62,11 @@ const Post = ({ match }) => {
                                 {header}
                             </Typography>
                             <div className={post__layout}>
-                                <span className={post__category}>{category}</span>
-                                <span style={{ display: "flex" }}><p style={{ marginRight: "1em", "marginTop": "0.2em" }}>RATING: </p><Rating rating={rating} /></span>
+                                <Category category={category} disabled={true} />
+                                <span style={{ display: "flex" }}>
+                                    <p style={{ marginRight: "1em", marginTop: "0.2em" }}>RATING: </p>
+                                    <Rating rating={rating} />
+                                </span>
                             </div>
                         </div>
                         {images.map((image, index) => (
