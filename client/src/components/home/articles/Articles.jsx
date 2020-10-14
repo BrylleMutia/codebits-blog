@@ -20,8 +20,8 @@ const useStyles = makeStyles(() => ({
         marginTop: "2em",
     },
     marginBottom: {
-        marginBottom: "3em"
-    }
+        marginBottom: "3em",
+    },
 }));
 
 const Articles = () => {
@@ -37,9 +37,7 @@ const Articles = () => {
     let categories = posts.map((post) => post.category);
     categories.forEach((category, index) => {
         if (index === 0) categories = [];
-        category.forEach((cat) => {
-            if (!categories.includes(cat)) categories.push(cat);
-        });
+        if (!categories.includes(category)) categories.push(category);
     });
 
     // show alert for 5 seconds
@@ -65,7 +63,9 @@ const Articles = () => {
                             ))}
 
                             {/* DISPLAY MSG IF SAVED POSTS IS EMPTY */}
-                            <Typography style={{ display: posts.length > 0 && "none" }} className={classes.marginBottom}>No saved posts. </Typography>
+                            <Typography style={{ display: posts.length > 0 && "none" }} className={classes.marginBottom}>
+                                No posts found.
+                            </Typography>
                         </div>
                         <Pages />
                     </React.Fragment>

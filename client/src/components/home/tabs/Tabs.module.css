@@ -1,4 +1,6 @@
 .tabs__button {
+  font-family: roboto;
+  font-size: 0.9rem;
   padding: 1em 1.5em;
   border: none;
   background: var(--color-default);

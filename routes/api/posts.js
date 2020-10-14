@@ -48,6 +48,24 @@ router.get("/", async (req, res) => {
     }
 });
 
+// @route   GET api/posts/search
+// @desc    Respond with posts that correspond the title search
+// @access  Public
+router.get("/search", (req, res) => {
+    const { searchTitle } = req.query;
+
+    // find all posts that have the keyword provided in search
+    // case non-sensitive
+    Post.find({
+        title: {
+            $regex: searchTitle,
+            $options: "i",
+        },
+    })
+        .then((foundPosts) => res.json(foundPosts))
+        .catch((err) => res.status(400).json({ msg: "No posts found related to search", err }));
+});
+
 // @route   POST api/posts
 // @desc    Add new post with images
 // @access  Public
@@ -95,7 +113,6 @@ router.get("/:postId", (req, res) => {
         .catch((err) => res.status(400).json({ msg: "Can't find requested post", err }));
 });
 
-
 router.delete("/:postId", (req, res) => {
     Post.findById(req.params.postId).then((post) => {
         post.remove()
@@ -103,6 +120,5 @@ router.delete("/:postId", (req, res) => {
             .catch((error) => res.status(400).json({ deleteSuccess: false, error }));
     });
 });
-
 
 module.exports = router;

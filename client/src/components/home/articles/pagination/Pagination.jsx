@@ -5,6 +5,7 @@ import Pagination from "@material-ui/lab/Pagination";
 
 import { useDispatch, useSelector } from "react-redux";
 import { getPosts } from "../../../../actions/postsActions";
+import { toggleSwitch } from "../../../../actions/controlActions";
 
 const useStyles = makeStyles(() => ({
     pages: {
@@ -34,13 +35,15 @@ const Pages = () => {
                 break;
         }
 
+        // reset switches then get posts for the next page
+        dispatch(toggleSwitch(null));
         dispatch(getPosts(page, sortbyrating));
     };
 
     return (
-        // hide pagination if in Saved posts tab
+        // hide pagination if in Saved posts and Search tab
         <Pagination
-            style={{ display: currentTab === "Saved" && "none" }}
+            style={{ display: currentTab === "Saved" || currentTab === "Search" ? "none" : null }}
             className={classes.pages}
             color="primary"
             count={totalPages}

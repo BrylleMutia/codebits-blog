@@ -24,6 +24,7 @@ const useStyles = makeStyles(() => ({
     root: {
         margin: "1.5em",
         width: "280px",
+        transition: "opacity 500ms ease-in-out",
     },
     type: {
         fontWeight: 500,
@@ -39,9 +40,10 @@ const ArticleCard = ({ postDetails, handleSetAlert }) => {
     const classes = useStyles();
     const dispatch = useDispatch();
 
-    const { _id, title, header, rating, images } = postDetails;
+    const { _id, title, header, rating, images, category } = postDetails;
 
     const { isAuthenticated, user } = useSelector((state) => state.auth);
+    const activeSwitch = useSelector((state) => state.controls.switch);
 
     const handleSavePost = () => {
         if (isAuthenticated) {
@@ -61,9 +63,21 @@ const ArticleCard = ({ postDetails, handleSetAlert }) => {
         }
     };
 
+    // animate display state of card once a switch is toggled
+    const cardDisplayStyle = () => {
+        if (activeSwitch) {
+            if (activeSwitch !== category)
+                return {
+                    // opacity: 0,
+                    // position: "absolute",
+                    display: "none"
+                };
+        }
+    };
+
     return (
         <article>
-            <Card className={classes.root}>
+            <Card className={classes.root} style={cardDisplayStyle()}>
                 <Link style={{ textDecoration: "none", color: "inherit" }} to={`/post/${_id}`}>
                     <CardActionArea>
                         <img className={card__img} src={`/${images[0]}`} alt="card-img" />

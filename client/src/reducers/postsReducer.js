@@ -12,22 +12,25 @@ const initialState = {
 
 export default function (state = initialState, action) {
     switch (action.type) {
+        // determine if payload contains pagination details or posts only
+        // then change state accordingly
         case GET_POSTS:
-            return {
-                ...state,
-                ...action.payload,
-            };
+            if (action.payload instanceof Array) {
+                return {
+                    ...state,
+                    posts: action.payload,
+                };
+            } else {
+                return {
+                    ...state,
+                    ...action.payload,
+                };
+            }
 
         case FETCH_POST:
             return {
                 ...state,
                 currentPost: action.payload,
-            };
-
-        case GET_SAVED:
-            return {
-                ...state,
-                posts: action.payload,
             };
 
         case POSTS_LOADING:

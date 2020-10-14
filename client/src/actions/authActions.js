@@ -8,7 +8,7 @@ import {
     REGISTER_SUCCESS,
     REGISTER_FAIL,
     SAVE_POST,
-    GET_SAVED
+    GET_POSTS
 } from "./types";
 import { returnErrors } from "./errorActions";
 import { setPostsLoaded, setPostsLoading } from "./postsActions";
@@ -127,7 +127,7 @@ export const getSaved = (userId) => (dispatch) => {
         .get(`/api/users/${userId}/savedposts`, headers)
         .then((savedPosts) =>
             dispatch({
-                type: GET_SAVED,
+                type: GET_POSTS,
                 payload: savedPosts.data,
             })
         )

@@ -1,23 +1,23 @@
 import React from "react";
 import { post__category } from "./Category.module.css";
 
-import { switchOn, switchOff } from "../../../actions/controlActions";
+import { toggleSwitch } from "../../../actions/controlActions";
 import { useSelector, useDispatch } from "react-redux";
 
 const Category = ({ category, disabled }) => {
     const dispatch = useDispatch();
-    const activeSwitches = useSelector((state) => state.controls.switches);
+    const activeSwitch = useSelector((state) => state.controls.switch);
 
-    // toggle switches
+    // toggle switch for category filtering
     const handleToggleSwitch = (switchName) => {
-        if (activeSwitches.includes(switchName)) {
-            dispatch(switchOff(switchName));
+        if (activeSwitch !== switchName) {
+            dispatch(toggleSwitch(switchName));
         } else {
-            dispatch(switchOn(switchName));
+            dispatch(toggleSwitch(null));
         }
     };
 
-    const getSwitchStyles = (switchName) => ({ background: activeSwitches.includes(switchName) && "var(--color-accent)" });
+    const getSwitchStyles = (switchName) => ({ background: activeSwitch === switchName && "var(--color-accent)" });
 
     return (
         <button className={post__category} style={getSwitchStyles(category)} disabled={disabled} onClick={() => handleToggleSwitch(category)}>

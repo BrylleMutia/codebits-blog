@@ -1,8 +1,8 @@
-import { CHANGE_TAB, SWITCH_ON, SWITCH_OFF } from "../actions/types";
+import { CHANGE_TAB, TOGGLE_SWITCH } from "../actions/types";
 
 const initialState = {
     tab: "Latest",
-    switches: [],
+    switch: null,
 };
 
 export default function (state = initialState, action) {
@@ -13,16 +13,10 @@ export default function (state = initialState, action) {
                 tab: action.payload,
             };
 
-        case SWITCH_ON:
+        case TOGGLE_SWITCH:
             return {
                 ...state,
-                switches: [...state.switches, action.payload],
-            };
-
-        case SWITCH_OFF:
-            return {
-                ...state,
-                switches: [...state.switches].filter((activeSwitch) => activeSwitch !== action.payload),
+                switch: action.payload,
             };
 
         default:

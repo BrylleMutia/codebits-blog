@@ -114,6 +114,7 @@ p {
   border: none;
   background-color: var(--color-default, #fff);
   padding: 0.3em;
+  color: black;
 }
 
 .loader {
