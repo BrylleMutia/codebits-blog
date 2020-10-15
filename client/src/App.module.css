@@ -76,9 +76,9 @@ p {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: var(--row-justify, start);
-      -ms-flex-pack: var(--row-justify, start);
-          justify-content: var(--row-justify, start);
+  -webkit-box-pack: var(--row-justify, center);
+      -ms-flex-pack: var(--row-justify, center);
+          justify-content: var(--row-justify, center);
   -webkit-box-align: var(--row-align, center);
       -ms-flex-align: var(--row-align, center);
           align-items: var(--row-align, center);

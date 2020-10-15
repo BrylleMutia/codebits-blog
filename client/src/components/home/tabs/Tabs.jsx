@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { tabs__button } from "./Tabs.module.css";
+import { tabs, tabs__button } from "./Tabs.module.css";
 
 import { useSelector, useDispatch } from "react-redux";
 import { changeTab, toggleSwitch } from "../../../actions/controlActions";
@@ -7,7 +7,7 @@ import { getPosts } from "../../../actions/postsActions";
 import { getSaved } from "../../../actions/authActions";
 
 const Tabs = () => {
-    const [tabs] = useState(["Latest", "Top Rated"]);
+    const [postTabs] = useState(["Latest", "Top Rated"]);
 
     const dispatch = useDispatch();
     const currentTab = useSelector((state) => state.controls.tab);
@@ -42,8 +42,8 @@ const Tabs = () => {
     };
 
     return (
-        <div>
-            {tabs.map((tab, index) => (
+        <div className={tabs}>
+            {postTabs.map((tab, index) => (
                 <button
                     key={index}
                     className={tabs__button}

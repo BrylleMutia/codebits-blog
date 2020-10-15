@@ -5,7 +5,7 @@
 }
 
 .navbar__brand img {
-  width: 15%;
+  width: 90px;
   position: relative;
   top: 1.8em;
 }
@@ -18,16 +18,90 @@
   color: #fff;
 }
 
+@media (max-width: 780px) {
+  .navbar__brand img {
+    display: none;
+  }
+}
+
 .navbar__name {
   margin-left: 0.5em;
 }
 
 .navbar__menu {
   height: 100%;
+  -ms-flex-preferred-size: 40%;
+      flex-basis: 40%;
+}
+
+@media (max-width: 860px) {
+  .navbar__menu div:not(:last-child) {
+    display: none;
+  }
+  .navbar__menu div:last-child {
+    float: right;
+    display: block;
+  }
 }
 
 .navbar__links a {
   padding-bottom: 1em;
   border-bottom: 5px solid transparent;
+}
+
+.menu {
+  padding-top: 0.5em;
+  display: none;
+  width: 25px;
+  height: 20px;
+  cursor: pointer;
+  -webkit-transition: all 500ms ease-in-out;
+  transition: all 500ms ease-in-out;
+}
+
+.menu__hamburger {
+  width: 25px;
+  height: 3px;
+  background: var(--color-accent);
+  border-radius: 2px;
+  -webkit-transition: all 500ms ease-in-out;
+  transition: all 500ms ease-in-out;
+}
+
+.menu__hamburger::after, .menu__hamburger::before {
+  content: "";
+  position: absolute;
+  width: 25px;
+  height: 3px;
+  background: var(--color-accent);
+  border-radius: 2px;
+  -webkit-transition: all 500ms ease-in-out;
+  transition: all 500ms ease-in-out;
+}
+
+.menu__hamburger::before {
+  -webkit-transform: translateY(-6px);
+          transform: translateY(-6px);
+}
+
+.menu__hamburger::after {
+  -webkit-transform: translateY(6px);
+          transform: translateY(6px);
+}
+
+.menu.menu__open .menu__hamburger {
+  -webkit-transform: translateX(-30px);
+          transform: translateX(-30px);
+  background: transparent;
+}
+
+.menu.menu__open .menu__hamburger::before {
+  -webkit-transform: rotate(45deg) translate(20px, -20px);
+          transform: rotate(45deg) translate(20px, -20px);
+}
+
+.menu.menu__open .menu__hamburger::after {
+  -webkit-transform: rotate(-45deg) translate(20px, 20px);
+          transform: rotate(-45deg) translate(20px, 20px);
 }
 /*# sourceMappingURL=Navbar.module.css.map */

@@ -19,4 +19,16 @@
       -ms-flex-pack: justify;
           justify-content: space-between;
 }
+
+.post__rating_text {
+  font-size: 0.9rem;
+  margin-right: 1em;
+  margin-top: 0.2em;
+}
+
+@media (max-width: 500px) {
+  .post {
+    padding: 2em;
+  }
+}
 /*# sourceMappingURL=Post.module.css.map */

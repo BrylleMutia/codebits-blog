@@ -12,4 +12,14 @@
         align-items: flex-start;
         justify-content: space-between;
     }
+
+    &__rating_text {
+        font-size: 0.9rem;
+        margin-right: 1em;
+        margin-top: 0.2em;
+    }
+
+    @media (max-width: 500px) {
+        padding: 2em;
+    }
 }

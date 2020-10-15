@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import { post, post__img, post__category, post__layout } from "./Post.module.css";
-import { loader, flex_column, vertical_spacer_all } from "../../App.module.css";
+import { post, post__img, post__layout, post__rating_text } from "./Post.module.css";
+import { loader, flex_column } from "../../App.module.css";
 
 import Rating from "./rating/Rating";
 import Category from "./category/Category";
@@ -18,16 +18,16 @@ const useStyles = makeStyles(() => ({
     typography: {
         marginTop: "2em",
     },
-    marginBottom: {
-        marginBottom: "1em",
-    },
-    marginTop: {
-        marginTop: "1em",
-    },
-    header: {
+    title: {
         borderLeft: "5px solid #39ace7",
         padding: "0.5em",
         paddingLeft: "1em",
+        fontSize: "calc(1rem + 1.5vw)",
+        marginBottom: "1em",
+    },
+    header: {
+        fontSize: "calc(0.8rem + 0.3vw)",
+        marginBottom: "2em",
     },
 }));
 
@@ -55,16 +55,16 @@ const Post = ({ match }) => {
                 ) : (
                     <React.Fragment>
                         <div className={post}>
-                            <Typography className={cx(classes.marginBottom, classes.header)} variant="h4">
+                            <Typography className={classes.title} variant="h4">
                                 {title}
                             </Typography>
-                            <Typography className={classes.marginBottom} variant="subtitle1">
+                            <Typography className={classes.header} variant="subtitle1">
                                 {header}
                             </Typography>
                             <div className={post__layout}>
                                 <Category category={category} disabled={true} />
                                 <span style={{ display: "flex" }}>
-                                    <p style={{ marginRight: "1em", marginTop: "0.2em" }}>RATING: </p>
+                                    <p className={post__rating_text}>RATING: </p>
                                     <Rating rating={rating} />
                                 </span>
                             </div>

@@ -5,7 +5,7 @@
 
     &__brand {
         img {
-            width: 15%;
+            width: 90px;
             position: relative;
             top: 1.8em;
         }
@@ -17,6 +17,12 @@
         h5 {
             color: #fff;
         }
+
+        @media (max-width: 780px) {
+            img {
+                display: none;
+            }
+        }
     }
 
     &__name {
@@ -25,6 +31,19 @@
 
     &__menu {
         height: 100%;
+        flex-basis: 40%;
+
+        // hide all links except the div that contains the hamburger menu
+        @media (max-width: 860px) {
+            & div:not(:last-child) {
+                display: none;
+            }
+
+            & div:last-child {
+                float: right;
+                display: block;
+            }
+        }
     }
 
     &__links {
@@ -35,3 +54,54 @@
     }
 }
 
+// hamburger menu for small devices
+.menu {
+    padding-top: 0.5em;
+    display: none;
+    width: 25px;
+    height: 20px;
+    cursor: pointer;
+    transition: all 500ms ease-in-out;
+
+    &__hamburger {
+        width: 25px;
+        height: 3px;
+        background: var(--color-accent);
+        border-radius: 2px;
+        transition: all 500ms ease-in-out;
+
+        &::after,
+        &::before {
+            content: "";
+            position: absolute;
+            width: 25px;
+            height: 3px;
+            background: var(--color-accent);
+            border-radius: 2px;
+            transition: all 500ms ease-in-out;
+        }
+
+        &::before {
+            transform: translateY(-6px);
+        }
+
+        &::after {
+            transform: translateY(6px);
+        }
+    }
+
+    &.menu__open {
+        .menu__hamburger {
+            transform: translateX(-30px);
+            background: transparent;
+
+            &::before {
+                transform: rotate(45deg) translate(20px, -20px);
+            }
+
+            &::after {
+                transform: rotate(-45deg) translate(20px, 20px);
+            }
+        }
+    }
+}

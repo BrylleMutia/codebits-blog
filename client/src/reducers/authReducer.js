@@ -7,7 +7,7 @@ import {
     LOGOUT_SUCCESS,
     REGISTER_SUCCESS,
     REGISTER_FAIL,
-    SAVE_POST
+    SAVE_POST,
 } from "../actions/types";
 
 const initialState = {
@@ -16,7 +16,8 @@ const initialState = {
     isLoading: false,
     user: {
         _id: null,
-        saved: []
+        email: null,
+        saved: [],
     },
 };
 
@@ -53,7 +54,8 @@ export default function (state = initialState, action) {
                 token: null,
                 user: {
                     _id: null,
-                    saved: []
+                    email: null,
+                    saved: [],
                 },
                 isAuthenticated: false,
                 isLoading: false,

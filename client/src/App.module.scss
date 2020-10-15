@@ -78,7 +78,7 @@ p {
 
 .flex_row {
     display: flex;
-    justify-content: var(--row-justify, start);
+    justify-content: var(--row-justify, center);
     align-items: var(--row-align, center);
 }
 

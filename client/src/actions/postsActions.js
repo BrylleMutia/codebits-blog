@@ -55,6 +55,8 @@ export const fetchPost = (postId) => (dispatch) => {
 
 // search posts by keyword on title
 export const searchPosts = (keyword) => (dispatch) => {
+    dispatch(setPostsLoading());
+
     axios
         .get(`/api/posts/search?searchTitle=${keyword}`, headers)
         .then((res) =>
@@ -64,6 +66,8 @@ export const searchPosts = (keyword) => (dispatch) => {
             })
         )
         .catch((err) => dispatch(returnErrors(err.response.data, err.response.status)));
+
+    dispatch(setPostsLoaded());
 };
 
 export const setPostsLoading = () => ({

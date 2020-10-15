@@ -59,7 +59,13 @@ const Dashboard = () => {
         <main>
             <div className={cx(container, side_padding, dashboard)}>
                 <Typography variant="h5">Welcome, Brylle! What's new?</Typography>
-                <form style={{ "--column-align": "stretch" }} className={cx(flex_column, vertical_spacer)} method="POST" action="/api/posts" enctype="multipart/form-data">
+                <form
+                    style={{ "--column-align": "stretch" }}
+                    className={cx(flex_column, vertical_spacer)}
+                    method="POST"
+                    action="/api/posts"
+                    enctype="multipart/form-data"
+                >
                     <TextField
                         type="text"
                         name="title"
@@ -69,7 +75,14 @@ const Dashboard = () => {
                         required="true"
                         onChange={(e) => setTitle(e.target.value)}
                     />
-                    <TextField type="text" name="header" label="Header" required="true" multiline={true} onChange={(e) => setHeader(e.target.value)} />
+                    <TextField
+                        type="text"
+                        name="header"
+                        label="Header"
+                        required="true"
+                        multiline={true}
+                        onChange={(e) => setHeader(e.target.value)}
+                    />
                     <div className={flex_row}>
                         <div className={rating__wrapper}>
                             <InputLabel className={classes.inputLabel} shrink={true} id="rating">
