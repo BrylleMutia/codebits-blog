@@ -28,12 +28,16 @@ export const getPosts = (page, sortbyrating) => (dispatch) => {
 export const addPost = (postDetails) => (dispatch) => {
     dispatch(setPostsLoading());
 
-    const body = JSON.stringify(postDetails);
+    const uploadHeaders = {
+        "Content-Type": "multipart/form-data",
+    };
 
     axios
-        .post("/api/posts", body, headers)
+        .post("/api/posts", postDetails, uploadHeaders)
         .then(() => dispatch(getPosts(1)))
         .catch((err) => dispatch(returnErrors(err.response.data, err.response.status)));
+
+    dispatch(setPostsLoaded());
 };
 
 // get details of currently selected post

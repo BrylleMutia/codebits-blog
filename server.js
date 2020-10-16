@@ -1,12 +1,14 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const config = require("config");
+const cors = require("cors");
 const path = require("path");
 const fs = require("fs");
 
 const app = express();
 
 app.use(express.json());
+app.use(cors());
 
 // connect to db
 const db = config.get("MONGO_URI");

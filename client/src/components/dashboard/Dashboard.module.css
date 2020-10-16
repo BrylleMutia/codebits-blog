@@ -1,6 +1,11 @@
 .dashboard {
   margin-top: 3em;
-  padding: 5em;
+  padding: 3em;
+}
+
+.dashboard__greeting {
+  font-size: calc(1rem + 0.5vw);
+  margin-bottom: 1rem;
 }
 
 .rating__wrapper {

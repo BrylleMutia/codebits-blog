@@ -19,10 +19,10 @@ const useStyles = makeStyles(() => ({
         marginTop: "2em",
     },
     title: {
+        fontSize: "calc(1rem + 1.5vw)",
         borderLeft: "5px solid #39ace7",
         padding: "0.5em",
         paddingLeft: "1em",
-        fontSize: "calc(1rem + 1.5vw)",
         marginBottom: "1em",
     },
     header: {

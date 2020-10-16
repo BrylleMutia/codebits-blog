@@ -2,20 +2,21 @@ import React, { useState } from "react";
 import { dashboard, rating__wrapper } from "./Dashboard.module.css";
 import { container, side_padding, flex_column, vertical_spacer, flex_row } from "../../App.module.css";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addPost } from "../../actions/postsActions";
 
 import cx from "classnames";
 
+import { makeStyles } from "@material-ui/core/styles";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
+import AddBoxIcon from "@material-ui/icons/AddBoxOutlined";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import InputLabel from "@material-ui/core/InputLabel";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import Button from "@material-ui/core/Button";
-import { makeStyles } from "@material-ui/core/styles";
-
-import AddBoxIcon from "@material-ui/icons/AddBoxOutlined";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 const useStyles = makeStyles(() => ({
     inputLabel: {
@@ -26,45 +27,72 @@ const useStyles = makeStyles(() => ({
         marginTop: "1em",
         flexGrow: "1",
     },
-    submit: {
-        alignSelf: "flex-end",
+    typography: {
+        fontSize: "calc(1rem + 0.3vw)",
+        marginBottom: "1rem",
     },
 }));
 
 const Dashboard = () => {
-    const [title, setTitle] = useState("");
-    const [header, setHeader] = useState("");
-    const [category, setCategory] = useState("");
-    const [rating, setRating] = useState(5);
+    const matches = useMediaQuery("(max-width: 400px)");
 
     const classes = useStyles();
 
     const dispatch = useDispatch();
 
+    const [title, setTitle] = useState("");
+    const [header, setHeader] = useState("");
+    const [category, setCategory] = useState("");
+    const [rating, setRating] = useState(5);
+
+    // state regarding files for upload
+    const [files, setFiles] = useState([]);
+
+    const isLoading = useSelector((state) => state.posts.isLoading);
+
     const handleAddNewPost = (e) => {
         // add new post to database via redux
         e.preventDefault();
 
-        const postDetails = {
-            title,
-            header,
-            category,
-            rating,
-        };
+        // store file and details in form data
+        let fileData = new FormData();
 
-        dispatch(addPost(postDetails));
+        // multiple file upload
+        // fileData.append("images", files);    // for single file upload only
+        for (let i = 0; i < files.length; i++) {
+            fileData.append("images", files[i]);
+        }
+
+        // add post details for form data
+        fileData.append("title", title);
+        fileData.append("header", header);
+        fileData.append("rating", rating);
+        fileData.append("category", category);
+
+        dispatch(addPost(fileData));
     };
+
+    const handleSetFilesToState = (e) => {
+        setFiles(e.target.files);
+    };
+
+    // styling for submit button with media query
+    const getSubmitStyles = () => ({
+        alignSelf: matches ? "center" : "flex-end",
+        marginTop: matches && "1rem",
+    });
 
     return (
         <main>
             <div className={cx(container, side_padding, dashboard)}>
-                <Typography variant="h5">Welcome, Brylle! What's new?</Typography>
+                <Typography variant="h5" className={classes.typography}>
+                    Welcome, Brylle! What's new?
+                </Typography>
                 <form
                     style={{ "--column-align": "stretch" }}
+                    onSubmit={handleAddNewPost}
                     className={cx(flex_column, vertical_spacer)}
-                    method="POST"
-                    action="/api/posts"
-                    enctype="multipart/form-data"
+                    encType="multipart/form-data"
                 >
                     <TextField
                         type="text"
@@ -112,9 +140,16 @@ const Dashboard = () => {
                             onChange={(e) => setCategory(e.target.value)}
                         />
                     </div>
-                    <input type="file" name="images" multiple />
-                    <Button className={classes.submit} endIcon={<AddBoxIcon />} type="submit" color="primary" variant="contained">
-                        CREATE POST
+                    <input type="file" name="images" multiple onChange={handleSetFilesToState} />
+                    <Button
+                        style={getSubmitStyles()}
+                        onClick={handleAddNewPost}
+                        endIcon={!isLoading && <AddBoxIcon />}
+                        type="submit"
+                        color="primary"
+                        variant="contained"
+                    >
+                        {isLoading ? <CircularProgress color="secondary" /> : "CREATE POST"}
                     </Button>
                 </form>
             </div>
