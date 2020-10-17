@@ -1,4 +1,4 @@
-import { GET_POSTS, POSTS_LOADED, POSTS_LOADING, FETCH_POST } from "./types";
+import { GET_POSTS, POSTS_LOADED, POSTS_LOADING, FETCH_POST, DELETE_POST } from "./types";
 import { returnErrors, clearErrors } from "./errorActions";
 import axios from "axios";
 
@@ -8,7 +8,7 @@ const headers = {
 };
 
 // get posts from database
-export const getPosts = (page, sortbyrating) => (dispatch) => {
+export const getPosts = (page = 1, sortbyrating = 0) => (dispatch) => {
     dispatch(setPostsLoading());
 
     axios
@@ -72,6 +72,20 @@ export const searchPosts = (keyword) => (dispatch) => {
         .catch((err) => dispatch(returnErrors(err.response.data, err.response.status)));
 
     dispatch(setPostsLoaded());
+};
+
+// delete post from database
+export const deletePost = (postId) => (dispatch) => {
+    dispatch(setPostsLoading());
+
+    axios
+        .delete(`/api/posts/delete/${postId}`)
+        .then(() => {
+            dispatch(setPostsLoaded());
+            // get new posts after delete is successful
+            dispatch(getPosts());
+        })
+        .catch((err) => dispatch(returnErrors(err.response.data, err.response.status)));
 };
 
 export const setPostsLoading = () => ({

@@ -113,11 +113,11 @@ router.get("/:postId", (req, res) => {
         .catch((err) => res.status(400).json({ msg: "Can't find requested post", err }));
 });
 
-router.delete("/:postId", (req, res) => {
+router.delete("/delete/:postId", (req, res) => {
     Post.findById(req.params.postId).then((post) => {
         post.remove()
             .then(() => res.json({ deleteSuccess: true }))
-            .catch((error) => res.status(400).json({ deleteSuccess: false, error }));
+            .catch((error) => res.status(400).json({ msg: "Unable to delete post", error }));
     });
 });
 
