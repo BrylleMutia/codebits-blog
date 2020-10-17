@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-import { navbar, navbar__brand, navbar__menu, navbar__name, navbar__links, menu, menu__hamburger, menu__open } from "./Navbar.module.css";
+import { navbar__brand, navbar__menu, navbar__name, navbar__links } from "./Navbar.module.css";
 import { side_padding, flex_row, flex_column, horizontal_spacer, vertical_spacer, link } from "../../App.module.css";
 
-import logo from "../images/logo.png";
+import { navbar, logo, items, menu, menu__hamburger, menu__open } from "./Navbar.module.css";
+
+import logoIcon from "../images/logo.png";
 import Search from "./search/Search";
 import RegisterModal from "./registerModal/RegisterModal";
 import LoginModal from "./loginModal/LoginModal";
@@ -48,10 +50,40 @@ const Navbar = ({ location }) => {
     };
 
     return (
-        <nav>
-            <div style={{ "--row-justify": "space-between" }} className={cx(flex_row, side_padding, navbar)}>
+        <nav className={navbar}>
+            <ul>
+                <li className={logo}>
+                    <div style={{ "--row-justify": "start" }} className={cx(flex_row, navbar__brand)}>
+                        <img src={logoIcon} alt="codebits-logo" />
+                        <div className={navbar__name}>
+                            <h3>CODEBITS</h3>
+                            <h5>PROGRAMMING x DESIGN</h5>
+                        </div>
+                    </div>
+                </li>
+
+
+                <div className={items} style={{ top: isOpen && "65px" }}>
+                    <li>
+                        <a href="#">Home</a>
+                    </li>
+                    <li>
+                        <a href="#">Dashboard</a>
+                    </li>
+                </div>
+
+                <Search />
+
+                <li>
+                    <div className={cx(menu, isOpen && menu__open)} onClick={handleOpenMenu}>
+                        <div className={menu__hamburger}></div>
+                    </div>
+                </li>
+            </ul>
+
+            {/* <ul style={{ "--row-justify": "space-between" }} className={cx(flex_row, side_padding, navbar)}>
                 <div style={{ "--row-justify": "start", position: isOpen && "relative" }} className={cx(flex_row, navbar__brand)}>
-                    <img src={logo} alt="codebits-logo" />
+                    <img src={logoIcon} alt="codebits-logo" />
                     <div className={navbar__name}>
                         <h3>CODEBITS</h3>
                         <h5>PROGRAMMING x DESIGN</h5>
@@ -72,7 +104,7 @@ const Navbar = ({ location }) => {
 
                     <div className={flex_row}>
                         {/* dynamic buttons depending if user is existent */}
-                        {!isAuthenticated ? (
+            {/* {!isAuthenticated ? (
                             <React.Fragment>
                                 <LoginModal />
                                 <RegisterModal />
@@ -86,7 +118,7 @@ const Navbar = ({ location }) => {
                         <div className={menu__hamburger}></div>
                     </div>
                 </div>
-            </div>
+            </ul> */}
         </nav>
     );
 };

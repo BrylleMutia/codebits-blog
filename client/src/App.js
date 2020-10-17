@@ -30,7 +30,7 @@ function App() {
             <div className={app}>
                 <Navbar />
                 <div className={container}>
-                    <Paper variant="elevation" elevation={2}>
+                    <Paper variant="elevation" elevation={2} style={{ zIndex: -5}}>
                         <Switch>
                             <Route exact path="/" component={Home} />
                             <Route exact path="/dashboard" component={Dashboard} />

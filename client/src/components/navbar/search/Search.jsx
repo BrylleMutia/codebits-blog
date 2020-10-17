@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { search } from "./Search.module.css";
+import { search, icon } from "./Search.module.css";
 import { flex_row, input } from "../../../App.module.css";
 
 import SearchIcon from "@material-ui/icons/Search";
@@ -31,17 +31,12 @@ const Search = () => {
     };
 
     return (
-        <form className={cx(flex_row, search)} onSubmit={handleSearchPosts}>
-            <input className={input} type="text" name="search" id="search" value={searchQuery} list="search-posts" onChange={(e) => setSearchQuery(e.target.value)} />
-            <Button
-                onClick={handleSearchPosts}
-                size="small"
-                disableElevation={true}
-                style={{ marginRight: "-20px", backgroundColor: "var(--color-accent)" }}
-            >
-                <SearchIcon />
-            </Button>
-        </form>
+        <li className={search}>
+            <input className={input} type="search" name="search" id="search" value={searchQuery} list="search-posts" onChange={(e) => setSearchQuery(e.target.value)} />
+            <label className={icon} onClick={handleSearchPosts}>
+                <span><SearchIcon /></span>
+            </label>
+        </li>
     );
 };
 
