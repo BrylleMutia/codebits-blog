@@ -1,0 +1,4 @@
+{
+    "mongoURI": "mongodb+srv://bryllemutia3:bryllem3@cluster0.jvmef.mongodb.net/codebits?retryWrites=true&w=majority",
+    "jwtSecret": "codebits_blog"
+}
