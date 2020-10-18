@@ -82,6 +82,7 @@ const Dashboard = () => {
         console.log(e.target.files);
     };
 
+
     // styling for submit button with media query
     const getSubmitStyles = () => ({
         alignSelf: matches ? "center" : "flex-end",

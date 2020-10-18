@@ -44,6 +44,8 @@ const useStyles = makeStyles(() => ({
 }));
 
 const ArticleCard = ({ postDetails, handleSetAlert }) => {
+    const URL_LINK = "https://codebits.herokuapp.com";
+
     const classes = useStyles();
     const dispatch = useDispatch();
 
@@ -56,6 +58,30 @@ const ArticleCard = ({ postDetails, handleSetAlert }) => {
         if (isAuthenticated) {
             // if authenticated, save post (params = userId, postId)
             dispatch(savePost(user._id, _id));
+            if (user.saved.includes(_id)) {
+                // post is already saved, do the opposite (unsave)
+                // then notify user
+                dispatch({
+                    type: GET_ERRORS,
+                    payload: {
+                        msg: {
+                            msg: "Post unsaved",
+                        },
+                    },
+                });
+                handleSetAlert("info");
+            } else {
+                // notify user upon successful save post
+                dispatch({
+                    type: GET_ERRORS,
+                    payload: {
+                        msg: {
+                            msg: "Post saved",
+                        },
+                    },
+                });
+                handleSetAlert("success");
+            }
         } else {
             // warn user if they try save post while not registered / logged in
             dispatch({
@@ -72,6 +98,33 @@ const ArticleCard = ({ postDetails, handleSetAlert }) => {
 
     const handleDeletePost = () => {
         dispatch(deletePost(_id));
+    };
+
+    // copy post link to clipboard upon clicking share button
+    const copyLinkToClipboard = () => {
+        const el = document.createElement("textarea");
+
+        // move textarea from the ui to disable edit
+        el.value = `${URL_LINK}/post/${_id}`;
+        el.setAttribute("readonly", "");
+        el.style.position = "absolute";
+        el.style.left = "-9999px";
+
+        document.body.appendChild(el);
+        el.select();
+        document.execCommand("copy");
+        document.body.removeChild(el);
+
+        // notify user upon copying link
+        dispatch({
+            type: GET_ERRORS,
+            payload: {
+                msg: {
+                    msg: "Link copied to clipboard",
+                },
+            },
+        });
+        handleSetAlert("success");
     };
 
     // animate display state of card once a switch is toggled
@@ -123,7 +176,7 @@ const ArticleCard = ({ postDetails, handleSetAlert }) => {
                         <IconButton aria-label="add to favorites" onClick={() => handleSavePost()}>
                             {user.saved.includes(_id) ? <BookmarkIcon /> : <BookmarkBorderIcon />}
                         </IconButton>
-                        <IconButton aria-label="share">
+                        <IconButton aria-label="share" onClick={copyLinkToClipboard}>
                             <ShareIcon />
                         </IconButton>
 

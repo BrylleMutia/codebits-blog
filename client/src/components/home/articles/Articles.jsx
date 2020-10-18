@@ -26,6 +26,7 @@ const Articles = () => {
     const classes = useStyles();
 
     const [showAlert, setAlert] = useState(false);
+    const [alertStyle, setAlertStyle] = useState("error");
 
     const { isLoading, posts } = useSelector((state) => state.posts);
     const { msg } = useSelector((state) => state.error.msg);
@@ -39,7 +40,8 @@ const Articles = () => {
     });
 
     // show alert for 5 seconds
-    const handleSetAlert = () => {
+    const handleSetAlert = (style = "error") => {
+        setAlertStyle(style);
         setAlert(true);
         setTimeout(() => setAlert(false), 5000);
     };
@@ -58,13 +60,13 @@ const Articles = () => {
                         No posts found.
                     </Typography>
                 </div>
-                
+
                 <Pages />
 
                 {/* display error message */}
                 <div style={{ position: "fixed", bottom: "5vh", zIndex: "99" }}>
                     {showAlert && (
-                        <Alert color="error" variant="standard">
+                        <Alert color={alertStyle} variant="standard">
                             {msg}
                         </Alert>
                     )}

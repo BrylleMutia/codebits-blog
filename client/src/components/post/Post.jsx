@@ -66,7 +66,11 @@ const Post = ({ match }) => {
                     </div>
                 </div>
                 {images.map((image, index) =>
-                    isLoading ? <Skeleton width="60vw" height="500px" /> : <img loading="lazy" className={post__img} key={index} src={`/${image}`} alt={`img-${title}`} />
+                    isLoading ? (
+                        <Skeleton width="60vw" height="500px" />
+                    ) : (
+                        <img loading="lazy" className={post__img} key={index} src={`/${image}`} alt={`img-${title}`} />
+                    )
                 )}
             </div>
         </article>
