@@ -1,4 +1,4 @@
-import { GET_POSTS, POSTS_LOADING, POSTS_LOADED, FETCH_POST, GET_SAVED } from "../actions/types";
+import { GET_POSTS, POSTS_LOADING, POSTS_LOADED, FETCH_POST } from "../actions/types";
 
 const initialState = {
     isLoading: false,

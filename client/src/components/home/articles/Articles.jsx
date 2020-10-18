@@ -13,8 +13,6 @@ import { Alert } from "@material-ui/lab";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Typography from "@material-ui/core/Typography";
 
-import FavoriteIcon from "@material-ui/icons/Favorite";
-
 const useStyles = makeStyles(() => ({
     marginTop: {
         marginTop: "2em",

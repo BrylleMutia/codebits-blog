@@ -12,8 +12,6 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 
-import cx from "classnames";
-
 const useStyles = makeStyles(() => ({
     typography: {
         marginTop: "2em",
@@ -42,7 +40,7 @@ const Post = ({ match }) => {
     useEffect(() => {
         // get post details by id provided in match props (react-router)
         dispatch(fetchPost(match.params.id));
-    }, []);
+    }, [dispatch, match.params.id]);
 
     return (
         <article>
@@ -70,7 +68,7 @@ const Post = ({ match }) => {
                             </div>
                         </div>
                         {images.map((image, index) => (
-                            <img className={post__img} key={index} src={`/${image}`} alt={`img-${title}`} />
+                            <img loading="lazy" className={post__img} key={index} src={`/${image}`} alt={`img-${title}`} />
                         ))}
                     </React.Fragment>
                 )}

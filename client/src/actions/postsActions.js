@@ -1,5 +1,5 @@
-import { GET_POSTS, POSTS_LOADED, POSTS_LOADING, FETCH_POST, DELETE_POST } from "./types";
-import { returnErrors, clearErrors } from "./errorActions";
+import { GET_POSTS, POSTS_LOADED, POSTS_LOADING, FETCH_POST } from "./types";
+import { returnErrors } from "./errorActions";
 import axios from "axios";
 
 // declare default headers

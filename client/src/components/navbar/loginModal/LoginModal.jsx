@@ -21,7 +21,7 @@ const useStyles = makeStyles({
     },
 });
 
-function LoginModal({ history }) {
+function LoginModal({ toggleMenu }) {
     const classes = useStyles();
 
     const dispatch = useDispatch();
@@ -54,8 +54,9 @@ function LoginModal({ history }) {
         };
 
         dispatch(loginUser(userDetails));
-        // redirect user to dashboard if Authenticated
-        // if (isAuthenticated || !error.msg.msg) history.push("/dashboard");
+
+        // close dropdown menu on navbar
+        toggleMenu();
     };
 
     const dialogToggle = () => {
@@ -82,7 +83,11 @@ function LoginModal({ history }) {
             <Dialog open={isOpen} onClose={dialogToggle} aria-labelledby="form-dialog-title">
                 <form onSubmit={handleLoginUser}>
                     <DialogTitle id="form-dialog-title">LOGIN</DialogTitle>
-                    {msg ? <Alert color="error" variant="standard">{msg}</Alert> : null}
+                    {msg ? (
+                        <Alert color="error" variant="standard">
+                            {msg}
+                        </Alert>
+                    ) : null}
                     <DialogContent>
                         <TextField onChange={onFormChange} name="email" margin="dense" id="email" label="Email" type="email" fullWidth autoFocus />
                         <TextField onChange={onFormChange} name="password" margin="dense" id="password" label="Password" type="password" fullWidth />

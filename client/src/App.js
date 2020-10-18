@@ -6,7 +6,7 @@ import Home from "./components/home/Home";
 import Dashboard from "./components/dashboard/Dashboard";
 import Post from "./components/post/Post";
 
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { getPosts } from "./actions/postsActions";
 import { loadUser } from "./actions/authActions";
 
@@ -19,18 +19,18 @@ function App() {
 
     useEffect(() => {
         dispatch(getPosts(1, 0));
-    }, []);
+    }, [dispatch]);
 
     useEffect(() => {
         dispatch(loadUser()); // check for user auth everytime the app updates
-    }, []);
+    }, [dispatch]);
 
     return (
         <Router>
             <div className={app}>
                 <Navbar />
                 <div className={container}>
-                    <Paper variant="elevation" elevation={2} style={{ zIndex: -5}}>
+                    <Paper variant="elevation" elevation={2}>
                         <Switch>
                             <Route exact path="/" component={Home} />
                             <Route exact path="/dashboard" component={Dashboard} />

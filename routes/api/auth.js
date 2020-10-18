@@ -50,7 +50,8 @@ router.post("/", (req, res) => {
 router.get("/user", auth, (req, res) => {
     User.findById(req.user.id) // from on jwt payload (auth middleware)
         .select("-password") // exclude password
-        .then((user) => res.json(user));
+        .then((user) => res.json(user))
+        .catch((err) => res.status(400).json({ msg: "Failed to load user", err }));
 });
 
 module.exports = router;

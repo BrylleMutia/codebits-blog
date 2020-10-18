@@ -21,7 +21,7 @@ const useStyles = makeStyles({
     },
 });
 
-function LogoutModal() {
+function LogoutModal({ toggleMenu }) {
     const classes = useStyles();
 
     const dispatch = useDispatch();
@@ -34,6 +34,9 @@ function LogoutModal() {
         dispatch(changeTab("Latest"));
         dispatch(getPosts(1, 0));
         dispatch(logout());
+
+        // close dropdown menu on navbar
+        toggleMenu();
     };
 
     const logoutModalToggle = () => {

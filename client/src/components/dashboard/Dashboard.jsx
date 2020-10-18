@@ -99,15 +99,15 @@ const Dashboard = () => {
                         name="title"
                         label="Title"
                         multiline={true}
-                        autoFocus="true"
-                        required="true"
+                        autoFocus={true}
+                        required={true}
                         onChange={(e) => setTitle(e.target.value)}
                     />
                     <TextField
                         type="text"
                         name="header"
                         label="Header"
-                        required="true"
+                        required={true}
                         multiline={true}
                         onChange={(e) => setHeader(e.target.value)}
                     />
@@ -120,7 +120,6 @@ const Dashboard = () => {
                                 labelId="rating"
                                 id="select"
                                 name="rating"
-                                defaultValue={rating}
                                 value={rating}
                                 fullWidth={true}
                                 onChange={(e) => setRating(Number(e.target.value))}

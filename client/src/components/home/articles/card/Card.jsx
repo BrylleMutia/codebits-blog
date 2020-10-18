@@ -1,5 +1,5 @@
 import React from "react";
-import { card, card__details, card__rating, card__img } from "./Card.module.css";
+import { card__rating, card__img } from "./Card.module.css";
 
 import { Link } from "react-router-dom";
 
@@ -90,7 +90,7 @@ const ArticleCard = ({ postDetails, handleSetAlert }) => {
             <Card className={classes.root} style={cardDisplayStyle()}>
                 <Link style={{ textDecoration: "none", color: "inherit" }} to={`/post/${_id}`}>
                     <CardActionArea>
-                        <img className={card__img} src={`/${images[0]}`} alt="card-img" />
+                        <img loading="lazy" className={card__img} src={`/${images[0]}`} alt="card-img" />
 
                         {/* check if rating variable is float, if not concatenate with .0 */}
                         <div className={card__rating}>{parseInt(rating) === rating ? `${rating}.0` : rating}</div>

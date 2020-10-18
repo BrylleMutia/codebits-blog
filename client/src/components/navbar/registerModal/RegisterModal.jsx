@@ -18,7 +18,7 @@ const useStyles = makeStyles({
     },
 });
 
-function RegisterModal({ history }) {
+function RegisterModal({ history, toggleMenu }) {
     const classes = useStyles();
 
     const dispatch = useDispatch();
@@ -64,6 +64,9 @@ function RegisterModal({ history }) {
 
         dispatch(registerUser(newUser));
         dispatch(clearErrors());
+
+        // close dropdown menu on navbar
+        toggleMenu();
     };
 
     useEffect(() => {

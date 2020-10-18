@@ -1,17 +1,15 @@
 import React, { useState } from "react";
-import { search, icon } from "./Search.module.css";
-import { flex_row, input } from "../../../App.module.css";
+import { search } from "./Search.module.css";
+import { input } from "../../../App.module.css";
 
 import SearchIcon from "@material-ui/icons/Search";
 import Button from "@material-ui/core/Button";
-
-import cx from "classnames";
 
 import { useDispatch } from "react-redux";
 import { searchPosts } from "../../../actions/postsActions";
 import { changeTab } from "../../../actions/controlActions";
 
-const Search = () => {
+const Search = ({ toggleMenu }) => {
     const [searchQuery, setSearchQuery] = useState("");
 
     const dispatch = useDispatch();
@@ -28,14 +26,27 @@ const Search = () => {
             // clear search query field
             setSearchQuery("");
         }
+
+        // close dropdown menu on navbar
+        toggleMenu();
     };
 
     return (
         <li className={search}>
-            <input className={input} type="search" name="search" id="search" value={searchQuery} list="search-posts" onChange={(e) => setSearchQuery(e.target.value)} />
-            <label className={icon} onClick={handleSearchPosts}>
-                <span><SearchIcon /></span>
-            </label>
+            <form onSubmit={handleSearchPosts}>
+                <input
+                    className={input}
+                    type="search"
+                    name="search"
+                    id="search"
+                    value={searchQuery}
+                    list="search-posts"
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                />
+                <Button type="submit" color="primary" variant="contained" onClick={handleSearchPosts}>
+                    <SearchIcon />
+                </Button>
+            </form>
         </li>
     );
 };
