@@ -17,6 +17,7 @@ import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import Button from "@material-ui/core/Button";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import Alert from "@material-ui/lab/Alert";
 
 const useStyles = makeStyles(() => ({
     inputLabel: {
@@ -29,6 +30,9 @@ const useStyles = makeStyles(() => ({
     },
     typography: {
         fontSize: "calc(1rem + 0.3vw)",
+        marginBottom: "1rem",
+    },
+    marginBottom: {
         marginBottom: "1rem",
     },
 }));
@@ -49,6 +53,7 @@ const Dashboard = () => {
     const [files, setFiles] = useState([]);
 
     const isLoading = useSelector((state) => state.posts.isLoading);
+    const msg = useSelector((state) => state.error.msg);
 
     const handleAddNewPost = (e) => {
         // add new post to database via redux
@@ -74,6 +79,7 @@ const Dashboard = () => {
 
     const handleSetFilesToState = (e) => {
         setFiles(e.target.files);
+        console.log(e.target.files);
     };
 
     // styling for submit button with media query
@@ -85,6 +91,8 @@ const Dashboard = () => {
     return (
         <main>
             <div className={cx(container, side_padding, dashboard)}>
+                {msg.msg && <Alert className={classes.marginBottom} color="error">{msg.msg}</Alert>}
+
                 <Typography variant="h5" className={classes.typography}>
                     Welcome, Brylle! What's new?
                 </Typography>
@@ -139,7 +147,10 @@ const Dashboard = () => {
                             onChange={(e) => setCategory(e.target.value)}
                         />
                     </div>
-                    <input type="file" name="images" multiple onChange={handleSetFilesToState} />
+                    <Button variant="contained" component="label" className={classes.marginBottom}>
+                        Upload files ({`${files.length} selected`})
+                        <input type="file" name="images" multiple onChange={handleSetFilesToState} />
+                    </Button>
                     <Button
                         style={getSubmitStyles()}
                         onClick={handleAddNewPost}

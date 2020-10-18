@@ -81,7 +81,7 @@ router.post("/", upload.array("images", 20), (req, res, next) => {
     const { title, header, rating, category } = req.body;
 
     // check if rating field is given
-    if (!rating) return res.status(400).json({ msg: "Please provide initial rating" });
+    if (!rating || !title || !header || !category ) return res.status(400).json({ msg: "Please fill all input fields" });
 
     // check if title is unique
     Post.findOne({ title }).then((post) => {

@@ -6,6 +6,12 @@
         font-size: calc(1rem + 0.5vw);
         margin-bottom: 1rem;
     }
+
+    input[type=file] {
+        border: none;
+        display: none;
+        
+    }
 }
 
 .rating__wrapper {

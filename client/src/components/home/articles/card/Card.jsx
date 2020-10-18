@@ -17,6 +17,7 @@ import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import Skeleton from "@material-ui/lab/Skeleton";
 
 import ShareIcon from "@material-ui/icons/Share";
 import BookmarkIcon from "@material-ui/icons/Bookmark";
@@ -90,17 +91,24 @@ const ArticleCard = ({ postDetails, handleSetAlert }) => {
             <Card className={classes.root} style={cardDisplayStyle()}>
                 <Link style={{ textDecoration: "none", color: "inherit" }} to={`/post/${_id}`}>
                     <CardActionArea>
-                        <img loading="lazy" className={card__img} src={`/${images[0]}`} alt="card-img" />
+                        {isLoading ? (
+                            <Skeleton width="300px" height="300px"></Skeleton>
+                        ) : (
+                            <React.Fragment>
+                                <img loading="lazy" className={card__img} src={`/${images[0]}`} alt="card-img" />
 
-                        {/* check if rating variable is float, if not concatenate with .0 */}
-                        <div className={card__rating}>{parseInt(rating) === rating ? `${rating}.0` : rating}</div>
+                                {/* check if rating variable is float, if not concatenate with .0 */}
+                                <div className={card__rating}>{parseInt(rating) === rating ? `${rating}.0` : rating}</div>
+                            </React.Fragment>
+                        )}
 
                         <CardContent>
                             <Typography className={classes.type} gutterBottom variant="body1" component="h2">
-                                {title}
+                                {isLoading ? <Skeleton /> : title}
                             </Typography>
                             <Typography variant="body2" color="textSecondary" component="p">
-                                {header.length > 70 ? header.slice(0, 70) + "..." : header}
+                                {/* cut header text if its too long */}
+                                {isLoading ? <Skeleton /> : header.length > 70 ? header.slice(0, 70) + "..." : header}
                             </Typography>
                         </CardContent>
                     </CardActionArea>

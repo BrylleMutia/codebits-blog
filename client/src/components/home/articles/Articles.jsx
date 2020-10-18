@@ -47,27 +47,19 @@ const Articles = () => {
     return (
         <main>
             <div className={articles}>
-                {isLoading ? (
-                    <div className={loader}>
-                        <CircularProgress />
-                        <Typography className={classes.marginTop}>Loading posts...</Typography>
-                    </div>
-                ) : (
-                    <React.Fragment>
-                        <Switches categories={categories} />
-                        <div className={cards}>
-                            {posts.map((post, index) => (
-                                <ArticleCard key={index} handleSetAlert={handleSetAlert} postDetails={post} />
-                            ))}
+                <Switches categories={categories} />
+                <div className={cards}>
+                    {posts.map((post, index) => (
+                        <ArticleCard key={index} handleSetAlert={handleSetAlert} postDetails={post} />
+                    ))}
 
-                            {/* DISPLAY MSG IF SAVED POSTS IS EMPTY */}
-                            <Typography style={{ display: posts.length > 0 && "none" }} className={classes.marginBottom}>
-                                No posts found.
-                            </Typography>
-                        </div>
-                        <Pages />
-                    </React.Fragment>
-                )}
+                    {/* DISPLAY MSG IF SAVED POSTS IS EMPTY */}
+                    <Typography style={{ display: posts.length > 0 && "none" }} className={classes.marginBottom}>
+                        No posts found.
+                    </Typography>
+                </div>
+                
+                <Pages />
 
                 {/* display error message */}
                 <div style={{ position: "fixed", bottom: "5vh", zIndex: "99" }}>

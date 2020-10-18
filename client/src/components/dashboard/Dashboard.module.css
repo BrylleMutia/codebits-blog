@@ -8,6 +8,11 @@
   margin-bottom: 1rem;
 }
 
+.dashboard input[type=file] {
+  border: none;
+  display: none;
+}
+
 .rating__wrapper {
   -ms-flex-preferred-size: 10%;
       flex-basis: 10%;

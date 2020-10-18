@@ -8,9 +8,10 @@ import Category from "./category/Category";
 import { fetchPost } from "../../actions/postsActions";
 import { useSelector, useDispatch } from "react-redux";
 
+import { makeStyles } from "@material-ui/core/styles";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
+import Skeleton from "@material-ui/lab/Skeleton";
 
 const useStyles = makeStyles(() => ({
     typography: {
@@ -45,32 +46,27 @@ const Post = ({ match }) => {
     return (
         <article>
             <div className={flex_column}>
-                {isLoading ? (
-                    <div className={loader}>
-                        <CircularProgress />
-                        <Typography className={classes.typography}>Loading post...</Typography>
+                <div className={post}>
+                    <Typography className={classes.title} variant="h4">
+                        {isLoading ? <Skeleton /> : title}
+                    </Typography>
+                    <Typography className={classes.header} variant="subtitle1">
+                        {isLoading ? <Skeleton /> : header}
+                    </Typography>
+                    <div className={post__layout}>
+                        {isLoading ? <Skeleton width="100px" /> : <Category category={category} disabled={true} />}
+                        {isLoading ? (
+                            <Skeleton width="100px" />
+                        ) : (
+                            <span style={{ display: "flex" }}>
+                                <p className={post__rating_text}>RATING: </p>
+                                <Rating rating={rating} />
+                            </span>
+                        )}
                     </div>
-                ) : (
-                    <React.Fragment>
-                        <div className={post}>
-                            <Typography className={classes.title} variant="h4">
-                                {title}
-                            </Typography>
-                            <Typography className={classes.header} variant="subtitle1">
-                                {header}
-                            </Typography>
-                            <div className={post__layout}>
-                                <Category category={category} disabled={true} />
-                                <span style={{ display: "flex" }}>
-                                    <p className={post__rating_text}>RATING: </p>
-                                    <Rating rating={rating} />
-                                </span>
-                            </div>
-                        </div>
-                        {images.map((image, index) => (
-                            <img loading="lazy" className={post__img} key={index} src={`/${image}`} alt={`img-${title}`} />
-                        ))}
-                    </React.Fragment>
+                </div>
+                {images.map((image, index) =>
+                    isLoading ? <Skeleton width="60vw" height="500px" /> : <img loading="lazy" className={post__img} key={index} src={`/${image}`} alt={`img-${title}`} />
                 )}
             </div>
         </article>
