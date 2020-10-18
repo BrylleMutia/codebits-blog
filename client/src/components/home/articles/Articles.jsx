@@ -12,6 +12,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Alert } from "@material-ui/lab";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Typography from "@material-ui/core/Typography";
+import Button from "@material-ui/core/Button";
+import Snackbar from "@material-ui/core/Snackbar";
 
 const useStyles = makeStyles(() => ({
     marginTop: {
@@ -40,10 +42,13 @@ const Articles = () => {
     });
 
     // show alert for 5 seconds
-    const handleSetAlert = (style = "error") => {
+    const handleOpenAlert = (style = "error") => {
         setAlertStyle(style);
         setAlert(true);
-        setTimeout(() => setAlert(false), 5000);
+    };
+
+    const handleCloseAlert = () => {
+        setAlert(false);
     };
 
     return (
@@ -52,7 +57,7 @@ const Articles = () => {
                 <Switches categories={categories} />
                 <div className={cards}>
                     {posts.map((post, index) => (
-                        <ArticleCard key={index} handleSetAlert={handleSetAlert} postDetails={post} />
+                        <ArticleCard key={index} handleSetAlert={handleOpenAlert} postDetails={post} />
                     ))}
 
                     {/* DISPLAY MSG IF SAVED POSTS IS EMPTY */}
@@ -65,11 +70,11 @@ const Articles = () => {
 
                 {/* display error message */}
                 <div style={{ position: "fixed", bottom: "5vh", zIndex: "99" }}>
-                    {showAlert && (
-                        <Alert color={alertStyle} variant="standard">
+                    <Snackbar open={showAlert} autoHideDuration={5000} onClose={handleCloseAlert}>
+                        <Alert elevation={6} variant="filled" onClose={handleCloseAlert} severity={alertStyle}>
                             {msg}
                         </Alert>
-                    )}
+                    </Snackbar>
                 </div>
             </div>
         </main>
