@@ -29,6 +29,8 @@ function RegisterModal({ history, toggleMenu }) {
 
     const [name, setName] = useState("");
     const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
+    const [showPassword, setShowPassword] = useState(false);
     const [email, setEmail] = useState("");
     const [msg, setMsg] = useState(null);
 
@@ -48,14 +50,17 @@ function RegisterModal({ history, toggleMenu }) {
             case "password":
                 setPassword(e.target.value);
                 break;
+            case "confirm-password":
+                setConfirmPassword(e.target.value);
+                break;
             default:
                 break;
         }
     };
-    
 
     const handleRegisterUser = (e) => {
         e.preventDefault();
+
         const newUser = {
             name,
             email,
@@ -67,6 +72,14 @@ function RegisterModal({ history, toggleMenu }) {
 
         // close dropdown menu on navbar
         toggleMenu();
+    };
+
+    const handleClickShowPassword = () => {
+        setShowPassword((prev) => !prev);
+    };
+
+    const handleMouseDownPassword = (e) => {
+        e.preventDefault();
     };
 
     useEffect(() => {
@@ -99,9 +112,37 @@ function RegisterModal({ history, toggleMenu }) {
                         </Alert>
                     ) : null}
                     <DialogContent>
-                        <TextField onChange={onFormChange} autoFocus name="name" margin="dense" id="name" label="Name" type="text" fullWidth />
-                        <TextField onChange={onFormChange} name="email" margin="dense" id="email" label="Email" type="email" fullWidth />
-                        <TextField onChange={onFormChange} name="password" margin="dense" id="password" label="Password" type="password" fullWidth />
+                        <TextField
+                            onChange={onFormChange}
+                            autoFocus
+                            name="name"
+                            margin="dense"
+                            id="name"
+                            label="Name"
+                            type="text"
+                            fullWidth
+                            variant="outlined"
+                        />
+                        <TextField
+                            onChange={onFormChange}
+                            name="email"
+                            margin="dense"
+                            id="email"
+                            label="Email"
+                            type="email"
+                            fullWidth
+                            variant="outlined"
+                        />
+                        <TextField
+                            onChange={onFormChange}
+                            name="password"
+                            margin="dense"
+                            id="password"
+                            label="Password"
+                            type="password"
+                            fullWidth
+                            variant="outlined"
+                        />
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={handleRegisterModalToggle} color="primary">

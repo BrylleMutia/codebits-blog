@@ -34,10 +34,8 @@ export const addPost = (postDetails) => (dispatch) => {
 
     axios
         .post("/api/posts", postDetails, uploadHeaders)
-        .then(() => dispatch(getPosts(1)))
+        .then(() => dispatch(setPostsLoaded()))
         .catch((err) => dispatch(returnErrors(err.response.data, err.response.status)));
-
-    dispatch(setPostsLoaded());
 };
 
 // get details of currently selected post

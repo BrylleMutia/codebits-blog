@@ -89,8 +89,8 @@ function LoginModal({ toggleMenu }) {
                         </Alert>
                     ) : null}
                     <DialogContent>
-                        <TextField onChange={onFormChange} name="email" margin="dense" id="email" label="Email" type="email" fullWidth autoFocus />
-                        <TextField onChange={onFormChange} name="password" margin="dense" id="password" label="Password" type="password" fullWidth />
+                        <TextField onChange={onFormChange} name="email" margin="dense" id="email" label="Email" type="email" fullWidth autoFocus variant="outlined" />
+                        <TextField onChange={onFormChange} name="password" margin="dense" id="password" label="Password" type="password" fullWidth variant="outlined" />
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={dialogToggle} color="primary">
