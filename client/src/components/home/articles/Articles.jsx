@@ -1,19 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 import { articles, cards } from "./Articles.module.css";
-import { loader } from "../../../App.module.css";
 
 import ArticleCard from "./card/Card";
 import Switches from "./switches/Switches";
 import Pages from "./pagination/Pagination";
+import Notify from "../../notify/Notify";
 
 import { useSelector } from "react-redux";
 
 import { makeStyles } from "@material-ui/core/styles";
-import { Alert } from "@material-ui/lab";
-import CircularProgress from "@material-ui/core/CircularProgress";
 import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
-import Snackbar from "@material-ui/core/Snackbar";
+
 
 const useStyles = makeStyles(() => ({
     marginTop: {
@@ -27,11 +24,7 @@ const useStyles = makeStyles(() => ({
 const Articles = () => {
     const classes = useStyles();
 
-    const [showAlert, setAlert] = useState(false);
-    const [alertStyle, setAlertStyle] = useState("error");
-
-    const { isLoading, posts } = useSelector((state) => state.posts);
-    const { msg } = useSelector((state) => state.error.msg);
+    const { posts } = useSelector((state) => state.posts);
 
     // get all current categories in posts for switches
     // remove duplicates
@@ -41,23 +34,13 @@ const Articles = () => {
         if (!categories.includes(category)) categories.push(category);
     });
 
-    // show alert for 5 seconds
-    const handleOpenAlert = (style = "error") => {
-        setAlertStyle(style);
-        setAlert(true);
-    };
-
-    const handleCloseAlert = () => {
-        setAlert(false);
-    };
-
     return (
         <main>
             <div className={articles}>
                 <Switches categories={categories} />
                 <div className={cards}>
                     {posts.map((post, index) => (
-                        <ArticleCard key={index} handleSetAlert={handleOpenAlert} postDetails={post} />
+                        <ArticleCard key={index} postDetails={post} />
                     ))}
 
                     {/* DISPLAY MSG IF SAVED POSTS IS EMPTY */}
@@ -68,14 +51,8 @@ const Articles = () => {
 
                 <Pages />
 
-                {/* display error message */}
-                <div style={{ position: "fixed", bottom: "5vh", zIndex: "99" }}>
-                    <Snackbar open={showAlert} autoHideDuration={5000} onClose={handleCloseAlert}>
-                        <Alert elevation={6} variant="filled" onClose={handleCloseAlert} severity={alertStyle}>
-                            {msg}
-                        </Alert>
-                    </Snackbar>
-                </div>
+                {/* display alert / toast / nofification */}
+                <Notify />
             </div>
         </main>
     );

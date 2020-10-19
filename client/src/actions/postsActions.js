@@ -1,4 +1,5 @@
 import { GET_POSTS, POSTS_LOADED, POSTS_LOADING, FETCH_POST } from "./types";
+import { showToast } from "./controlActions";
 import { returnErrors } from "./errorActions";
 import axios from "axios";
 
@@ -34,8 +35,10 @@ export const addPost = (postDetails) => (dispatch) => {
 
     axios
         .post("/api/posts", postDetails, uploadHeaders)
-        .then(() => dispatch(setPostsLoaded()))
+        .then(() => dispatch(showToast("success", "Post was successfully created")))
         .catch((err) => dispatch(returnErrors(err.response.data, err.response.status)));
+
+    dispatch(setPostsLoaded());
 };
 
 // get details of currently selected post
@@ -80,6 +83,8 @@ export const deletePost = (postId) => (dispatch) => {
         .delete(`/api/posts/delete/${postId}`)
         .then(() => {
             dispatch(setPostsLoaded());
+            // display alert on successful deletion
+            dispatch(showToast("info", "Post successfully deleted"));
             // get new posts after delete is successful
             dispatch(getPosts());
         })

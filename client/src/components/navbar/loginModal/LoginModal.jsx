@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import modalImage from "../../images/illustration.jpg";
 
 import { Button, TextField, Dialog, DialogActions, DialogContent, DialogTitle, makeStyles } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
@@ -88,9 +89,31 @@ function LoginModal({ toggleMenu }) {
                             {msg}
                         </Alert>
                     ) : null}
+
+                    <img src={modalImage} alt="modal-image" />
+
                     <DialogContent>
-                        <TextField onChange={onFormChange} name="email" margin="dense" id="email" label="Email" type="email" fullWidth autoFocus variant="outlined" />
-                        <TextField onChange={onFormChange} name="password" margin="dense" id="password" label="Password" type="password" fullWidth variant="outlined" />
+                        <TextField
+                            onChange={onFormChange}
+                            name="email"
+                            margin="dense"
+                            id="email"
+                            label="Email"
+                            type="email"
+                            fullWidth
+                            autoFocus
+                            variant="outlined"
+                        />
+                        <TextField
+                            onChange={onFormChange}
+                            name="password"
+                            margin="dense"
+                            id="password"
+                            label="Password"
+                            type="password"
+                            fullWidth
+                            variant="outlined"
+                        />
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={dialogToggle} color="primary">

@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { dashboard, rating__wrapper } from "./Dashboard.module.css";
 import { container, side_padding, flex_column, vertical_spacer, flex_row } from "../../App.module.css";
 
+import Notify from "../notify/Notify";
+
 import { useDispatch, useSelector } from "react-redux";
 import { addPost } from "../../actions/postsActions";
 
@@ -163,6 +165,9 @@ const Dashboard = () => {
                         {isLoading ? <CircularProgress color="secondary" /> : "CREATE POST"}
                     </Button>
                 </form>
+
+                {/* display alert / toast / notification */}
+                <Notify />
             </div>
         </main>
     );

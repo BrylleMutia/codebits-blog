@@ -4,9 +4,9 @@ import { card__rating, card__img } from "./Card.module.css";
 import { Link } from "react-router-dom";
 
 import { useSelector, useDispatch } from "react-redux";
-import { GET_ERRORS } from "../../../../actions/types";
 import { savePost } from "../../../../actions/authActions";
 import { deletePost } from "../../../../actions/postsActions";
+import { showToast } from "../../../../actions/controlActions";
 
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
@@ -43,8 +43,8 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
-const ArticleCard = ({ postDetails, handleSetAlert }) => {
-    const URL_LINK = "https://codebits.herokuapp.com";
+const ArticleCard = ({ postDetails }) => {
+    const URL_LINK = "https://codebits-blog.herokuapp.com";
 
     const classes = useStyles();
     const dispatch = useDispatch();
@@ -61,41 +61,18 @@ const ArticleCard = ({ postDetails, handleSetAlert }) => {
             if (user.saved.includes(_id)) {
                 // post is already saved, do the opposite (unsave)
                 // then notify user
-                dispatch({
-                    type: GET_ERRORS,
-                    payload: {
-                        msg: {
-                            msg: "Post unsaved",
-                        },
-                    },
-                });
-                handleSetAlert("info");
+                dispatch(showToast("info", "Post unsaved"));
             } else {
                 // notify user upon successful save post
-                dispatch({
-                    type: GET_ERRORS,
-                    payload: {
-                        msg: {
-                            msg: "Post saved",
-                        },
-                    },
-                });
-                handleSetAlert("success");
+                dispatch(showToast("success", "Post saved"));
             }
         } else {
             // warn user if they try save post while not registered / logged in
-            dispatch({
-                type: GET_ERRORS,
-                payload: {
-                    msg: {
-                        msg: "Please login or register first",
-                    },
-                },
-            });
-            handleSetAlert();
+            dispatch(showToast("error", "Please login or register first"));
         }
     };
 
+    // delete post, show alert then refetch posts if successful
     const handleDeletePost = () => {
         dispatch(deletePost(_id));
     };
@@ -116,15 +93,7 @@ const ArticleCard = ({ postDetails, handleSetAlert }) => {
         document.body.removeChild(el);
 
         // notify user upon copying link
-        dispatch({
-            type: GET_ERRORS,
-            payload: {
-                msg: {
-                    msg: "Link copied to clipboard",
-                },
-            },
-        });
-        handleSetAlert("success");
+        dispatch(showToast("success", "Link copied to clipboard"));
     };
 
     // animate display state of card once a switch is toggled

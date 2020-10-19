@@ -51,7 +51,7 @@ const Navbar = ({ location }) => {
                     </div>
                 </li>
 
-                <div className={items} style={{ top: isOpen && "65px" }}>
+                <div className={items} style={{ top: isOpen && "60px" }}>
                     <li>
                         <Link to="/" style={getLinkStyle("/")} className={link} onClick={toggleMenu}>
                             Home

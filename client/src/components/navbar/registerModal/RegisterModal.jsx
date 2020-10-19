@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import modalImage from "../../images/illustration.jpg";
 
 import { Button, TextField, Dialog, DialogActions, DialogContent, DialogTitle, makeStyles } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
@@ -111,6 +112,9 @@ function RegisterModal({ history, toggleMenu }) {
                             {msg}
                         </Alert>
                     ) : null}
+
+                    <img src={modalImage} alt="modal-image" />
+                    
                     <DialogContent>
                         <TextField
                             onChange={onFormChange}

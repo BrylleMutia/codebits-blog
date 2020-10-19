@@ -11,6 +11,7 @@ export const FETCH_POST = "FETCH_POST";
 export const SAVE_POST = "SAVE_POST";
 export const GET_SAVED = "GET_SAVED";
 export const SEARCH_POSTS = "SEARCH_POSTS";
+export const SHOW_TOAST = "SHOW_TOAST";
 
 // auth / user actions
 export const USER_LOADING = "USER_LOADING";

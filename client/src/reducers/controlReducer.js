@@ -1,8 +1,13 @@
-import { CHANGE_TAB, TOGGLE_SWITCH } from "../actions/types";
+import { CHANGE_TAB, TOGGLE_SWITCH, SHOW_TOAST } from "../actions/types";
 
 const initialState = {
     tab: "Latest",
     switch: null,
+    alert: {
+        alertVariant: "",
+        alertMsg: "",
+        isAlertShown: false,
+    },
 };
 
 export default function (state = initialState, action) {
@@ -11,6 +16,12 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 tab: action.payload,
+            };
+
+        case SHOW_TOAST:
+            return {
+                ...state,
+                alert: action.payload,
             };
 
         case TOGGLE_SWITCH:
