@@ -5,6 +5,7 @@ import Navbar from "./components/navbar/Navbar";
 import Home from "./components/home/Home";
 import Dashboard from "./components/dashboard/Dashboard";
 import Post from "./components/post/Post";
+import Feedback from "./components/feedback/Feedback";
 
 import { useDispatch } from "react-redux";
 import { getPosts } from "./actions/postsActions";
@@ -33,6 +34,7 @@ function App() {
                     <Paper variant="elevation" elevation={2}>
                         <Switch>
                             <Route exact path="/" component={Home} />
+                            <Route exact path="/feedback" component={Feedback} />
                             <Route exact path="/dashboard" component={Dashboard} />
                             <Route exact path="/post/:id" component={Post} />
                         </Switch>

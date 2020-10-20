@@ -58,6 +58,11 @@ const Navbar = ({ location }) => {
                         </Link>
                     </li>
                     <li>
+                        <Link to="/feedback" style={getLinkStyle("/feedback")} className={link} onClick={toggleMenu}>
+                            Feedback
+                        </Link>
+                    </li>
+                    <li>
                         <Link to="/dashboard" style={getLinkStyle("/dashboard")} className={link} onClick={toggleMenu}>
                             Dashboard
                         </Link>
