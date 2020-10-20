@@ -27,12 +27,6 @@ const userSchema = new Schema({
             ref: "post",
         },
     ],
-    rated: [
-        {
-            postId: { type: String },
-            rating: { type: Number },
-        },
-    ],
 });
 
 const postSchema = new Schema({
@@ -49,10 +43,12 @@ const postSchema = new Schema({
         type: String,
         required: true,
     },
-    rating: {
-        type: Number,
-        required: true,
-    },
+    ratings: [
+        {
+            _id: { type: String },
+            rating: { type: Number },
+        },
+    ],
     category: {
         type: String,
         required: true,

@@ -26,7 +26,7 @@ export const getPosts = (page = 1, sortbyrating = 0) => (dispatch) => {
 };
 
 // add new post to database
-export const addPost = (postDetails) => (dispatch) => {
+export const addPost = (postDetails, userId) => (dispatch) => {
     dispatch(setPostsLoading());
 
     const uploadHeaders = {
@@ -34,7 +34,7 @@ export const addPost = (postDetails) => (dispatch) => {
     };
 
     axios
-        .post("/api/posts", postDetails, uploadHeaders)
+        .post(`/api/posts?userId=${userId}`, postDetails, uploadHeaders)
         .then(() => dispatch(showToast("success", "Post was successfully created")))
         .catch((err) => dispatch(returnErrors(err.response.data, err.response.status)));
 

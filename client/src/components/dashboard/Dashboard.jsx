@@ -56,6 +56,7 @@ const Dashboard = () => {
 
     const isLoading = useSelector((state) => state.posts.isLoading);
     const msg = useSelector((state) => state.error.msg);
+    const userId = useSelector((state) => state.auth.user._id);
 
     const handleAddNewPost = (e) => {
         // add new post to database via redux
@@ -76,14 +77,13 @@ const Dashboard = () => {
         fileData.append("rating", rating);
         fileData.append("category", category);
 
-        dispatch(addPost(fileData));
+        dispatch(addPost(fileData, userId));
     };
 
     const handleSetFilesToState = (e) => {
         setFiles(e.target.files);
         console.log(e.target.files);
     };
-
 
     // styling for submit button with media query
     const getSubmitStyles = () => ({
@@ -94,7 +94,11 @@ const Dashboard = () => {
     return (
         <main>
             <div className={cx(container, side_padding, dashboard)}>
-                {msg.msg && <Alert className={classes.marginBottom} color="error">{msg.msg}</Alert>}
+                {msg.msg && (
+                    <Alert className={classes.marginBottom} color="error">
+                        {msg.msg}
+                    </Alert>
+                )}
 
                 <Typography variant="h5" className={classes.typography}>
                     Welcome, Brylle! What's new?

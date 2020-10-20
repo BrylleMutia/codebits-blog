@@ -10,19 +10,26 @@ const { Post } = require("../../models/schemaIndex");
 // @access  Public
 router.get("/", async (req, res) => {
     try {
-        const { page = 1, limit = 9, sortbyrating = 0 } = req.query;
+        const { page = 1, limit = 9, sortbyrating } = req.query;
 
         // configure sorting options
         // sort by date by default
-        // if rating = true, sort by rating
+        // if sortbyrating = 1, sort by rating
         // order = -1 (descending) OR 1 (ascending)
-        const sortInfo = {};
-        if (sortbyrating == 1) sortInfo["rating"] = -1;
-        sortInfo["date"] = -1;
+        const sortOptions = () => {
+            switch (sortbyrating) {
+                case "0":
+                    return { date: -1 };
+                case "1":
+                    return { "ratings.rating": -1 };
+                default:
+                    return { date: -1 };
+            }
+        };
 
         // execute query with page and limit values
         const posts = await Post.find()
-            .sort(sortInfo)
+            .sort(sortOptions())
             .skip((page - 1) * limit)
             .limit(limit * 1)
             .exec();
@@ -70,6 +77,8 @@ router.get("/search", (req, res) => {
 // @desc    Add new post with images
 // @access  Public
 router.post("/", upload.array("images", 20), (req, res, next) => {
+    const { userId } = req.query;
+
     // check if files are existent
     if (!req.files.length) {
         return res.status(400).json({ msg: "Empty or unsuccessful file upload" });
@@ -81,7 +90,7 @@ router.post("/", upload.array("images", 20), (req, res, next) => {
     const { title, header, rating, category } = req.body;
 
     // check if rating field is given
-    if (!rating || !title || !header || !category ) return res.status(400).json({ msg: "Please fill all input fields" });
+    if (!rating || !title || !header || !category) return res.status(400).json({ msg: "Please fill all input fields" });
 
     // check if title is unique
     Post.findOne({ title }).then((post) => {
@@ -90,7 +99,7 @@ router.post("/", upload.array("images", 20), (req, res, next) => {
         const newPost = new Post({
             title,
             header,
-            rating,
+            ratings: [{ _id: userId, rating }],
             category,
             images: imagesPath,
         });
@@ -113,12 +122,32 @@ router.get("/:postId", (req, res) => {
         .catch((err) => res.status(400).json({ msg: "Can't find requested post", err }));
 });
 
+// @route   DELETE /api/posts/delete/:postId
+// @desc    Delete a post
+// @access  Private
 router.delete("/delete/:postId", (req, res) => {
     Post.findById(req.params.postId).then((post) => {
         post.remove()
             .then(() => res.json({ deleteSuccess: true }))
             .catch((error) => res.status(400).json({ msg: "Unable to delete post", error }));
     });
+});
+
+// @route   PATCH /api/posts/rate/:postId
+// @desc    Update rating of a post
+// @access  Public
+router.patch("/rate/:postId", (req, res) => {
+    const { postId } = req.params;
+    const { userId, rating } = req.query;
+
+    Post.findById(postId)
+        .then((post) => {
+            post.ratings.push({ _id: userId, rating });
+            post.save()
+                .then((newPost) => res.json(newPost))
+                .catch(() => res.status(400).json({ msg: "Unable to update rating for post " }));
+        })
+        .catch(() => res.status(400).json({ msg: "Unable to update rating for post " }));
 });
 
 module.exports = router;

@@ -5,6 +5,7 @@ const initialState = {
     posts: [],
     currentPost: {
         images: [],
+        ratings: []
     },
     currentPage: 1,
     totalPages: 0,

@@ -35,8 +35,7 @@ router.post("/", (req, res) => {
                         _id: user._id,
                         name: user.name,
                         email: user.email,
-                        saved: user.saved,
-                        rated: user.rated,
+                        saved: user.saved
                     },
                 });
             });

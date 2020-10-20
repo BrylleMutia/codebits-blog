@@ -49,10 +49,14 @@ const ArticleCard = ({ postDetails }) => {
     const classes = useStyles();
     const dispatch = useDispatch();
 
-    const { _id, title, header, rating, images, category } = postDetails;
+    const { _id, title, header, ratings, images, category } = postDetails;
 
     const { isAuthenticated, user, isLoading } = useSelector((state) => state.auth);
     const activeSwitch = useSelector((state) => state.controls.switch);
+
+    // get overall rating for post
+    const overallRating = ratings.reduce((total, current) => (total += current.rating), 0);
+    const averageRating = overallRating / ratings.length;
 
     const handleSavePost = () => {
         if (isAuthenticated) {
@@ -120,7 +124,10 @@ const ArticleCard = ({ postDetails }) => {
                                 <img loading="lazy" className={card__img} src={`/${images[0]}`} alt="card-img" />
 
                                 {/* check if rating variable is float, if not concatenate with .0 */}
-                                <div className={card__rating}>{parseInt(rating) === rating ? `${rating}.0` : rating}</div>
+                                {/* use toPrecision to round-off and only show two decimal places */}
+                                <div className={card__rating}>
+                                    {parseInt(averageRating) === averageRating ? `${averageRating}.0` : averageRating.toPrecision(2)}
+                                </div>
                             </React.Fragment>
                         )}
 

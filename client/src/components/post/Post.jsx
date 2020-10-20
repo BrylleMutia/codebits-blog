@@ -34,9 +34,13 @@ const Post = ({ match }) => {
     const classes = useStyles();
 
     const { currentPost, isLoading } = useSelector((state) => state.posts);
-    const { title, header, images, rating, category } = currentPost;
+    const { title, header, images, ratings, category } = currentPost;
 
     const dispatch = useDispatch();
+
+    // get overall rating for post
+    const overallRating = ratings.reduce((total, current) => (total += current.rating), 0);
+    const averageRating = overallRating / ratings.length;
 
     useEffect(() => {
         // get post details by id provided in match props (react-router)
@@ -60,7 +64,7 @@ const Post = ({ match }) => {
                         ) : (
                             <span style={{ display: "flex" }}>
                                 <p className={post__rating_text}>RATING: </p>
-                                <Rating rating={rating} />
+                                <Rating rating={averageRating} />
                             </span>
                         )}
                     </div>
@@ -72,6 +76,8 @@ const Post = ({ match }) => {
                         <img loading="lazy" className={post__img} key={index} src={`/${image}`} alt={`img-${title}`} />
                     )
                 )}
+
+                {/* ratings */}
             </div>
         </article>
     );
