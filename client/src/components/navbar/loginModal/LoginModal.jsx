@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { modalImg } from "./LoginModal.module.css";
+
 import modalImage from "../../images/illustration.jpg";
 
 import { Button, TextField, Dialog, DialogActions, DialogContent, DialogTitle, makeStyles } from "@material-ui/core";
@@ -90,7 +92,7 @@ function LoginModal({ toggleMenu }) {
                         </Alert>
                     ) : null}
 
-                    <img src={modalImage} alt="modal-image" />
+                    <img className={modalImg} src={modalImage} alt="modal-image" />
 
                     <DialogContent>
                         <TextField

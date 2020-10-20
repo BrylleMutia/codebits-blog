@@ -1,0 +1,17 @@
+.modalImg {
+  width: 60%;
+  margin: 0 auto;
+}
+
+@media (max-width: 600px) {
+  .modalImg {
+    width: 75%;
+  }
+}
+
+@media (max-width: 450px) {
+  .modalImg {
+    width: 85%;
+  }
+}
+/*# sourceMappingURL=RegisterModal.module.css.map */
