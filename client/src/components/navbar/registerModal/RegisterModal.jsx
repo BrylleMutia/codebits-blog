@@ -115,7 +115,7 @@ function RegisterModal({ history, toggleMenu }) {
                         </Alert>
                     ) : null}
 
-                    <img className={modalImg} src={modalImage} alt="modal-image" />
+                    <img className={modalImg} src={modalImage} alt="modal" />
 
                     <DialogContent>
                         <TextField

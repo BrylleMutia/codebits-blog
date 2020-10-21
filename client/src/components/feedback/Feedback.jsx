@@ -4,6 +4,7 @@ const Feedback = () => {
     return (
         <div style={{ padding: "1rem 0" }}>
             <iframe
+                title="feedback-form"
                 src="https://docs.google.com/forms/d/e/1FAIpQLSdJIXY7jddxJKbmu4ffEAwRLw2yfNi3bAROJPRBn3u9OTKufA/viewform?embedded=true"
                 width="100%"
                 height="1150"

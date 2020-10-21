@@ -25,6 +25,18 @@ export const getPosts = (page = 1, sortbyrating = 0) => (dispatch) => {
     dispatch(setPostsLoaded());
 };
 
+export const getPostsNoLoading = (page = 1, sortbyrating = 0) => (dispatch) => {
+    axios
+        .get(`/api/posts?page=${page}&sortbyrating=${sortbyrating}`, headers)
+        .then((posts) =>
+            dispatch({
+                type: GET_POSTS,
+                payload: posts.data,
+            })
+        )
+        .catch((err) => dispatch(returnErrors(err.response.data, err.response.status)));
+};
+
 // add new post to database
 export const addPost = (postDetails, userId) => (dispatch) => {
     dispatch(setPostsLoading());
@@ -87,6 +99,23 @@ export const deletePost = (postId) => (dispatch) => {
             dispatch(showToast("info", "Post successfully deleted"));
             // get new posts after delete is successful
             dispatch(getPosts());
+        })
+        .catch((err) => dispatch(returnErrors(err.response.data, err.response.status)));
+};
+
+export const updateRating = (postId, userId, rating) => (dispatch) => {
+    axios
+        .patch(`/api/posts/rate/${postId}?userId=${userId}&rating=${rating}`)
+        .then((updatedPost) => {
+            // show alert then update current post
+            dispatch(showToast("success", "You're breathtaking!"));
+            // get updated post
+            dispatch({
+                type: FETCH_POST,
+                payload: updatedPost.data,
+            });
+            // get updated posts for home section
+            dispatch(getPostsNoLoading());
         })
         .catch((err) => dispatch(returnErrors(err.response.data, err.response.status)));
 };
