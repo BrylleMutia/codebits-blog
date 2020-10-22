@@ -58,6 +58,10 @@ const postSchema = new Schema({
             type: String,
         },
     ],
+    author: {
+        type: String,
+        required: false,
+    },
 });
 
 const User = mongoose.model("user", userSchema);

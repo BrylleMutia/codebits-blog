@@ -61,10 +61,14 @@ router.get("/", async (req, res) => {
 router.get("/search", (req, res) => {
     const { searchTitle } = req.query;
 
-    // find all posts that have the keyword provided in search
+    // find all posts that have the keyword provided in search / author
     // case non-sensitive
     Post.find({
         title: {
+            $regex: searchTitle,
+            $options: "i",
+        },
+        author: {
             $regex: searchTitle,
             $options: "i",
         },
@@ -87,7 +91,7 @@ router.post("/", upload.array("images", 20), (req, res, next) => {
     // get path of all uploaded images then save on db
     imagesPath = req.files.map((file) => file.path);
 
-    const { title, header, rating, category } = req.body;
+    const { title, header, rating, category, author } = req.body;
 
     // check if rating field is given
     if (!rating || !title || !header || !category) return res.status(400).json({ msg: "Please fill all input fields" });
@@ -99,6 +103,7 @@ router.post("/", upload.array("images", 20), (req, res, next) => {
         const newPost = new Post({
             title,
             header,
+            author,
             ratings: [{ _id: userId, rating }],
             category,
             images: imagesPath,

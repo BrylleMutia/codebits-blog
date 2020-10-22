@@ -50,6 +50,7 @@ const Dashboard = () => {
     const [header, setHeader] = useState("");
     const [category, setCategory] = useState("");
     const [rating, setRating] = useState(5);
+    const [author, setAuthor] = useState("");
 
     // state regarding files for upload
     const [files, setFiles] = useState([]);
@@ -76,6 +77,7 @@ const Dashboard = () => {
         fileData.append("header", header);
         fileData.append("rating", rating);
         fileData.append("category", category);
+        fileData.append("author", author);
 
         dispatch(addPost(fileData, userId));
     };
@@ -126,6 +128,7 @@ const Dashboard = () => {
                         multiline={true}
                         onChange={(e) => setHeader(e.target.value)}
                     />
+                    <TextField type="text" name="author" label="Author" onChange={(e) => setAuthor(e.target.value)} />
                     <div className={flex_row}>
                         <div className={rating__wrapper}>
                             <InputLabel className={classes.inputLabel} shrink={true} id="rating">

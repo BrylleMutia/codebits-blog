@@ -47,7 +47,11 @@ export const addPost = (postDetails, userId) => (dispatch) => {
 
     axios
         .post(`/api/posts?userId=${userId}`, postDetails, uploadHeaders)
-        .then(() => dispatch(showToast("success", "Post was successfully created")))
+        .then(() => {
+            dispatch(showToast("success", "Post was successfully created"));
+            // get updated posts with new post
+            dispatch(getPosts());
+        })
         .catch((err) => dispatch(returnErrors(err.response.data, err.response.status)));
 
     dispatch(setPostsLoaded());

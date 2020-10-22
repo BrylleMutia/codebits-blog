@@ -21,7 +21,7 @@ const Category = ({ category, disabled }) => {
 
     return (
         <button className={post__category} style={getSwitchStyles(category)} disabled={disabled} onClick={() => handleToggleSwitch(category)}>
-            {category}
+            {category !== "" ? category : "Unknown"}
         </button>
     );
 };

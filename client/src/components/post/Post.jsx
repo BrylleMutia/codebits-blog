@@ -4,6 +4,7 @@ import { flex_column } from "../../App.module.css";
 
 import Rating from "./rating/Rating";
 import Category from "./category/Category";
+import ImgCarousel from "./carousel/ImgCarousel";
 import Notify from "../notify/Notify";
 
 import { fetchPost, updateRating } from "../../actions/postsActions";
@@ -15,7 +16,6 @@ import Typography from "@material-ui/core/Typography";
 import Skeleton from "@material-ui/lab/Skeleton";
 import MuiRating from "@material-ui/lab/Rating";
 import Box from "@material-ui/core/Box";
-import ImgCarousel from "./carousel/ImgCarousel";
 
 const useStyles = makeStyles(() => ({
     typography: {
@@ -57,7 +57,7 @@ const Post = ({ match }) => {
 
     const { currentPost, isLoading } = useSelector((state) => state.posts);
     const { user, isAuthenticated } = useSelector((state) => state.auth);
-    const { title, header, images, ratings, category } = currentPost;
+    const { title, header, images, ratings, category, author } = currentPost;
 
     const dispatch = useDispatch();
 
@@ -94,7 +94,7 @@ const Post = ({ match }) => {
                         {isLoading ? <Skeleton /> : header}
                     </Typography>
                     <div className={post__layout}>
-                        {isLoading ? <Skeleton width="100px" /> : <Category category={category} disabled={true} />}
+                        {isLoading ? <Skeleton width="100px" /> : <Category category={author} disabled={true} />}
                         {isLoading ? (
                             <Skeleton width="100px" />
                         ) : (
