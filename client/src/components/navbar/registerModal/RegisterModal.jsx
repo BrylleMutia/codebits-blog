@@ -3,7 +3,7 @@ import { modalImg } from "./RegisterModal.module.css";
 
 import modalImage from "../../images/illustration.jpg";
 
-import { Button, TextField, Dialog, DialogActions, DialogContent, DialogTitle, makeStyles } from "@material-ui/core";
+import { Button, TextField, Dialog, DialogActions, DialogContent, DialogTitle, makeStyles, Typography } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
 
 import { useSelector, useDispatch } from "react-redux";
@@ -18,6 +18,9 @@ const useStyles = makeStyles({
     container: {
         display: "flex",
         justifyContent: "center",
+    },
+    dialogTitle: {
+        textAlign: "center",
     },
 });
 
@@ -108,14 +111,19 @@ function RegisterModal({ history, toggleMenu }) {
 
             <Dialog open={isRegisterModalOpen} onClose={handleRegisterModalToggle} aria-labelledby="form-dialog-title">
                 <form onSubmit={handleRegisterUser}>
-                    <DialogTitle id="form-dialog-title">REGISTER</DialogTitle>
+                    <img className={modalImg} src={modalImage} alt="modal" />
+
+                    <DialogTitle id="form-dialog-title" className={classes.dialogTitle}>
+                        <Typography>
+                            Learn Programming and Design in <span style={{ color: "var(--color-secondary)" }}>Codebits!</span>
+                        </Typography>
+                        <Typography variant="h6">Register now!</Typography>
+                    </DialogTitle>
                     {msg ? (
                         <Alert color="error" variant="standard">
                             {msg}
                         </Alert>
                     ) : null}
-
-                    <img className={modalImg} src={modalImage} alt="modal" />
 
                     <DialogContent>
                         <TextField

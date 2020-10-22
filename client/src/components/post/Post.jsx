@@ -15,6 +15,7 @@ import Typography from "@material-ui/core/Typography";
 import Skeleton from "@material-ui/lab/Skeleton";
 import MuiRating from "@material-ui/lab/Rating";
 import Box from "@material-ui/core/Box";
+import ImgCarousel from "./carousel/ImgCarousel";
 
 const useStyles = makeStyles(() => ({
     typography: {
@@ -104,13 +105,17 @@ const Post = ({ match }) => {
                         )}
                     </div>
                 </div>
-                {images.map((image, index) =>
+
+                {/* {images.map((image, index) =>
                     isLoading ? (
                         <Skeleton width="60vw" height="500px" />
                     ) : (
                         <img loading="lazy" className={post__img} key={index} src={`/${image}`} alt={`img-${title}`} />
                     )
-                )}
+                )} */}
+
+                {/* carousel for images */}
+                <ImgCarousel postImages={images} />
 
                 {/* rate the post*/}
                 <Typography className={classes.typography}>

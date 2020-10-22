@@ -8,10 +8,11 @@ import {
     REGISTER_SUCCESS,
     REGISTER_FAIL,
     SAVE_POST,
-    GET_POSTS
+    GET_POSTS,
 } from "./types";
 import { returnErrors } from "./errorActions";
 import { setPostsLoaded, setPostsLoading } from "./postsActions";
+import { showToast } from "./controlActions";
 import axios from "axios";
 
 // register user
@@ -30,12 +31,14 @@ export const registerUser = ({ name, email, password }) => (dispatch) => {
 
     axios
         .post("/api/users", body, config)
-        .then((res) =>
+        .then((res) => {
             dispatch({
                 type: REGISTER_SUCCESS,
                 payload: res.data,
-            })
-        )
+            });
+            // welcome greeting
+            dispatch(showToast("success", `Welcome, ${res.data.user.name}`));
+        })
         .catch((err) => {
             dispatch(returnErrors(err.response.data, err.response.status, "REGISTER_FAIL"));
             dispatch({
@@ -58,12 +61,14 @@ export const loginUser = ({ email, password }) => (dispatch) => {
 
     axios
         .post("/api/auth", body, config)
-        .then((res) =>
+        .then((res) => {
             dispatch({
                 type: LOGIN_SUCCESS,
                 payload: res.data,
-            })
-        )
+            });
+            // welcome greeting
+            dispatch(showToast("success", `Welcome, ${res.data.user.name}`));
+        })
         .catch((err) => {
             dispatch(returnErrors(err.response.data, err.response.status, "LOGIN_FAIL"));
             dispatch({

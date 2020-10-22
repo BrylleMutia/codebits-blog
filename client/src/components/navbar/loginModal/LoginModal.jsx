@@ -3,7 +3,7 @@ import { modalImg } from "./LoginModal.module.css";
 
 import modalImage from "../../images/illustration.jpg";
 
-import { Button, TextField, Dialog, DialogActions, DialogContent, DialogTitle, makeStyles } from "@material-ui/core";
+import { Button, TextField, Dialog, DialogActions, DialogContent, DialogTitle, Typography, makeStyles } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
 
 import { useSelector, useDispatch } from "react-redux";
@@ -21,6 +21,9 @@ const useStyles = makeStyles({
     },
     marginRight: {
         marginRight: "1em",
+    },
+    dialogTitle: {
+        textAlign: "center",
     },
 });
 
@@ -85,14 +88,18 @@ function LoginModal({ toggleMenu }) {
 
             <Dialog open={isOpen} onClose={dialogToggle} aria-labelledby="form-dialog-title">
                 <form onSubmit={handleLoginUser}>
-                    <DialogTitle id="form-dialog-title">LOGIN</DialogTitle>
+                    <img className={modalImg} src={modalImage} alt="modal" />
+
+                    <DialogTitle id="form-dialog-title" className={classes.dialogTitle}>
+                        <Typography>
+                            Learn Programming and Design in <span style={{ color: "var(--color-secondary)" }}>Codebits!</span>
+                        </Typography>
+                    </DialogTitle>
                     {msg ? (
                         <Alert color="error" variant="standard">
                             {msg}
                         </Alert>
                     ) : null}
-
-                    <img className={modalImg} src={modalImage} alt="modal" />
 
                     <DialogContent>
                         <TextField
