@@ -1,4 +1,4 @@
-import { GET_POSTS, POSTS_LOADED, POSTS_LOADING, FETCH_POST } from "./types";
+import { GET_POSTS, POSTS_LOADED, POSTS_LOADING, FETCH_POST, GET_RECOMMENDED } from "./types";
 import { showToast } from "./controlActions";
 import { returnErrors } from "./errorActions";
 import axios from "axios";
@@ -63,15 +63,30 @@ export const fetchPost = (postId) => (dispatch) => {
 
     axios
         .get(`/api/posts/${postId}`, headers)
-        .then((post) =>
+        .then((post) => {
             dispatch({
                 type: FETCH_POST,
                 payload: post.data,
-            })
-        )
+            });
+            // get recommended posts with the same category as the current post
+            dispatch(getRecommendedPosts(post.data.category));
+        })
         .catch((err) => dispatch(returnErrors(err.response.data, err.response.status)));
 
     dispatch(setPostsLoaded());
+};
+
+// fetch recommended posts
+export const getRecommendedPosts = (category) => (dispatch) => {
+    axios
+        .get(`/api/posts/recommended?category=${category}`)
+        .then((recommended) => {
+            dispatch({
+                type: GET_RECOMMENDED,
+                payload: recommended.data,
+            });
+        })
+        .catch((err) => dispatch(returnErrors(err.response.data, err.response.status)));
 };
 
 // search posts by keyword on title

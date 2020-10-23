@@ -1,12 +1,13 @@
-import { GET_POSTS, POSTS_LOADING, POSTS_LOADED, FETCH_POST } from "../actions/types";
+import { GET_POSTS, POSTS_LOADING, POSTS_LOADED, FETCH_POST, GET_RECOMMENDED } from "../actions/types";
 
 const initialState = {
     isLoading: false,
     posts: [],
     currentPost: {
         images: [],
-        ratings: []
+        ratings: [],
     },
+    recommended: [],
     currentPage: 1,
     totalPages: 0,
 };
@@ -32,6 +33,12 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 currentPost: action.payload,
+            };
+
+        case GET_RECOMMENDED:
+            return {
+                ...state,
+                recommended: action.payload,
             };
 
         case POSTS_LOADING:

@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { post, post__img, post__layout, post__rating_text } from "./Post.module.css";
-import { flex_column } from "../../App.module.css";
+import { post, post__img, post__layout, post__rating_text, recommended } from "./Post.module.css";
+import { flex_column, flex_column_wrap } from "../../App.module.css";
+
+import cx from "classnames";
 
 import Rating from "./rating/Rating";
 import Category from "./category/Category";
 import ImgCarousel from "./carousel/ImgCarousel";
 import Notify from "../notify/Notify";
+import ArticleCard from "../home/articles/card/Card";
 
 import { fetchPost, updateRating } from "../../actions/postsActions";
 import { useSelector, useDispatch } from "react-redux";
@@ -38,6 +41,12 @@ const useStyles = makeStyles(() => ({
     box: {
         marginBottom: "2rem",
     },
+    recommended_title: {
+        margin: "2rem",
+        marginTop: "5rem",
+        fontWeight: "700",
+        alignSelf: "flex-start",
+    },
 }));
 
 // display corresponding label for each rating
@@ -58,6 +67,7 @@ const Post = ({ match }) => {
     const { currentPost, isLoading } = useSelector((state) => state.posts);
     const { user, isAuthenticated } = useSelector((state) => state.auth);
     const { title, header, images, ratings, category, author } = currentPost;
+    const recommendedPosts = useSelector((state) => state.posts.recommended);
 
     const dispatch = useDispatch();
 
@@ -79,6 +89,8 @@ const Post = ({ match }) => {
     };
 
     useEffect(() => {
+        // scroll user to top because react doesnt reload the page entirely
+        window.scrollTo(0, 0);
         // get post details by id provided in match props (react-router)
         dispatch(fetchPost(match.params.id));
     }, [dispatch, match.params.id]);
@@ -136,6 +148,15 @@ const Post = ({ match }) => {
                 {averageRating !== null && (
                     <Box className={classes.box}>{labels[currentUserFeedback.length ? currentUserFeedback[0].rating : ratingHoverValue]}</Box>
                 )}
+
+                <div style={{ margin: "0 2rem" }}>
+                    <Typography className={classes.recommended_title}>Check out these other guides!</Typography>
+                    <div className={cx(flex_column_wrap, recommended)}>
+                        {recommendedPosts.map((post, index) => (
+                            <ArticleCard postDetails={post} key={index} />
+                        ))}
+                    </div>
+                </div>
 
                 {/* toast / notify / alert */}
                 <Notify />

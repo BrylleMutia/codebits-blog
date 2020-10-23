@@ -1,5 +1,6 @@
 import React from "react";
-import { articles, cards } from "./Articles.module.css";
+import { articles } from "./Articles.module.css";
+import { flex_column_wrap } from "../../../App.module.css";
 
 import ArticleCard from "./card/Card";
 import Switches from "./switches/Switches";
@@ -10,7 +11,6 @@ import { useSelector } from "react-redux";
 
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-
 
 const useStyles = makeStyles(() => ({
     marginTop: {
@@ -38,7 +38,7 @@ const Articles = () => {
         <main>
             <div className={articles}>
                 <Switches categories={categories} />
-                <div className={cards}>
+                <div className={flex_column_wrap}>
                     {posts.map((post, index) => (
                         <ArticleCard key={index} postDetails={post} />
                     ))}

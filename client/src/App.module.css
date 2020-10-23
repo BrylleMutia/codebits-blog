@@ -2,7 +2,7 @@
   --color-primary: #2d383c;
   --color-secondary: #0784b5;
   --color-accent: #39ace7;
-  --color-default: #EBECED;
+  --color-default: #ebeced;
   --color-saved: #f44336;
 }
 
@@ -83,6 +83,17 @@ p {
   -webkit-box-align: var(--row-align, center);
       -ms-flex-align: var(--row-align, center);
           align-items: var(--row-align, center);
+}
+
+.flex_column_wrap {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: var(--wrap-justify, center);
+      -ms-flex-pack: var(--wrap-justify, center);
+          justify-content: var(--wrap-justify, center);
 }
 
 .flex_column {

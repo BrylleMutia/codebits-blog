@@ -4,7 +4,7 @@
     --color-primary: #2d383c;
     --color-secondary: #0784b5;
     --color-accent: #39ace7;
-    --color-default: #EBECED;
+    --color-default: #ebeced;
     --color-saved: #f44336;
 }
 
@@ -83,6 +83,12 @@ p {
     align-items: var(--row-align, center);
 }
 
+.flex_column_wrap {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: var(--wrap-justify, center);
+}
+
 .flex_column {
     display: flex;
     flex-direction: column;
@@ -95,7 +101,8 @@ p {
     text-decoration: none;
     outline: none;
 
-    &:hover, &:focus {
+    &:hover,
+    &:focus {
         color: var(--color-accent);
     }
 }

@@ -55,6 +55,24 @@ router.get("/", async (req, res) => {
     }
 });
 
+// @route   GET api/posts/recommended
+// @desc    Get 3 random posts from the same category as recommendation
+// @access  Public
+router.get("/recommended", async (req, res) => {
+    const { category } = req.query;
+
+    const posts = await Post.find({ category }).limit(3).sort({ "ratings.rating": -1 });
+
+    // filter posts to only return the first image for thumbnail
+    // faster fetch of posts
+    const newPosts = posts.map((post) => {
+        post.images = post.images[0];
+        return post;
+    });
+
+    res.json(newPosts);
+});
+
 // @route   GET api/posts/search
 // @desc    Respond with posts that correspond the title search
 // @access  Public
