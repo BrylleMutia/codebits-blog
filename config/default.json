@@ -1,5 +1,0 @@
-{
-    "mongoURI": "mongodb+srv://bryllemutia3:bryllem3@cluster0.jvmef.mongodb.net/codebits?retryWrites=true&w=majority",
-    "mongoLOCAL": "mongodb://127.0.0.1:27017",
-    "jwtSecret": "codebits_blog"
-}
