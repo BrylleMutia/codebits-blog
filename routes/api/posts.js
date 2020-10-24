@@ -77,19 +77,32 @@ router.get("/recommended", async (req, res) => {
 // @desc    Respond with posts that correspond the title search
 // @access  Public
 router.get("/search", (req, res) => {
-    const { searchTitle } = req.query;
+    const { keyword } = req.query;
 
-    // find all posts that have the keyword provided in search / author
+    // find all posts that have the keyword provided in search
+    // match title, header and author of the post
     // case non-sensitive
     Post.find({
-        title: {
-            $regex: searchTitle,
-            $options: "i",
-        },
-        author: {
-            $regex: searchTitle,
-            $options: "i",
-        },
+        $or: [
+            {
+                title: {
+                    $regex: keyword,
+                    $options: "i",
+                },
+            },
+            {
+                header: {
+                    $regex: keyword,
+                    $options: "i",
+                },
+            },
+            {
+                author: {
+                    $regex: keyword,
+                    $options: "i",
+                },
+            },
+        ],
     })
         .then((foundPosts) => res.json(foundPosts))
         .catch((err) => res.status(400).json({ msg: "No posts found related to search", err }));

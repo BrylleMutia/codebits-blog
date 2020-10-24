@@ -94,7 +94,7 @@ export const searchPosts = (keyword) => (dispatch) => {
     dispatch(setPostsLoading());
 
     axios
-        .get(`/api/posts/search?searchTitle=${keyword}`, headers)
+        .get(`/api/posts/search?keyword=${keyword}`, headers)
         .then((res) =>
             dispatch({
                 type: GET_POSTS,
