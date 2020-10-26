@@ -59,9 +59,15 @@ router.get("/", async (req, res) => {
 // @desc    Get 3 random posts from the same category as recommendation
 // @access  Public
 router.get("/recommended", async (req, res) => {
-    const { category } = req.query;
+    const { category, currentPostId } = req.query;
 
-    const posts = await Post.find({ category }).limit(3).sort({ "ratings.rating": -1 });
+    // find the first 3 posts within the same category with the highest rating
+    // exclude the current post in query
+    const posts = await Post.find({
+        $and: [{ _id: { $ne: currentPostId } }, { category }],
+    })
+        .limit(3)
+        .sort({ "ratings.rating": -1 });
 
     // filter posts to only return the first image for thumbnail
     // faster fetch of posts

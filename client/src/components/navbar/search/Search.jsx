@@ -9,10 +9,14 @@ import { useDispatch } from "react-redux";
 import { searchPosts } from "../../../actions/postsActions";
 import { changeTab } from "../../../actions/controlActions";
 
-const Search = ({ toggleMenu }) => {
+import { useHistory, withRouter } from "react-router-dom";
+
+const Search = ({ toggleMenu, location }) => {
     const [searchQuery, setSearchQuery] = useState("");
 
     const dispatch = useDispatch();
+
+    let history = useHistory();
 
     // set search results to posts then change tab
     const handleSearchPosts = (e) => {
@@ -22,6 +26,9 @@ const Search = ({ toggleMenu }) => {
         if (searchQuery) {
             dispatch(changeTab("Search"));
             dispatch(searchPosts(searchQuery));
+
+            // redirect to home if not on home section
+            if (location.pathname !== "/") history.push("/");
 
             // clear search query field
             setSearchQuery("");
@@ -51,4 +58,4 @@ const Search = ({ toggleMenu }) => {
     );
 };
 
-export default Search;
+export default withRouter(Search);

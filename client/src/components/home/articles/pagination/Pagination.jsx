@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { makeStyles } from "@material-ui/core/styles";
 import Pagination from "@material-ui/lab/Pagination";
@@ -39,6 +39,11 @@ const Pages = () => {
         dispatch(toggleSwitch(null));
         dispatch(getPosts(page, sortbyrating));
     };
+
+    // scroll user to top once the page changes
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [currentPage]);
 
     return (
         // hide pagination if in Saved posts and Search tab

@@ -69,7 +69,7 @@ export const fetchPost = (postId) => (dispatch) => {
                 payload: post.data,
             });
             // get recommended posts with the same category as the current post
-            dispatch(getRecommendedPosts(post.data.category));
+            dispatch(getRecommendedPosts(post.data.category, postId));
         })
         .catch((err) => dispatch(returnErrors(err.response.data, err.response.status)));
 
@@ -77,9 +77,9 @@ export const fetchPost = (postId) => (dispatch) => {
 };
 
 // fetch recommended posts
-export const getRecommendedPosts = (category) => (dispatch) => {
+export const getRecommendedPosts = (category, currentPostId) => (dispatch) => {
     axios
-        .get(`/api/posts/recommended?category=${category}`)
+        .get(`/api/posts/recommended?category=${category}&currentPostId=${currentPostId}`)
         .then((recommended) => {
             dispatch({
                 type: GET_RECOMMENDED,
