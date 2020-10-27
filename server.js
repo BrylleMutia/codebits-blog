@@ -10,7 +10,7 @@ app.use(express.json());
 app.use(cors());
 
 // connect to db
-const db = config.get("mongoURI");
+const db = config.get("MONGO_URI");
 mongoose
     .connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log(`Connected to database!`))
