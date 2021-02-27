@@ -49,7 +49,7 @@ const ArticleCard = ({ postDetails }) => {
     const classes = useStyles();
     const dispatch = useDispatch();
 
-    const { _id, title, header, ratings, images, category } = postDetails;
+    const { _id, title, header, ratings, author, images, category } = postDetails;
 
     const { isAuthenticated, user, isLoading } = useSelector((state) => state.auth);
     const activeSwitch = useSelector((state) => state.controls.switch);
@@ -157,7 +157,7 @@ const ArticleCard = ({ postDetails }) => {
                         </IconButton>
 
                         {/* ONLY SHOW DELETE POST BUTTON FOR ADMIN */}
-                        {user.email === "bryllemutia3@gmail.com" && (
+                        {user.name === author && (
                             <IconButton onClick={handleDeletePost} aria-label="delete">
                                 {isLoading ? <CircularProgress className={classes.progress} /> : <DeleteIcon />}
                             </IconButton>

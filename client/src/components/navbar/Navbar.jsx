@@ -19,7 +19,6 @@ const Navbar = ({ location }) => {
     const [isOpen, setIsOpen] = useState(false);
 
     const { isAuthenticated } = useSelector((state) => state.auth);
-    const adminEmail = useSelector((state) => state.auth.user.email);
 
     const toggleMenu = () => {
         setIsOpen((prev) => !prev);
@@ -29,7 +28,7 @@ const Navbar = ({ location }) => {
         // only display dashboard if admin is logged in
         if (pathname === "/dashboard") {
             return {
-                display: adminEmail !== "bryllemutia3@gmail.com" && "none",
+                display: !isAuthenticated && "none",
                 color: location.pathname === pathname ? "var(--color-accent)" : "var(--color-secondary)",
             };
         } else

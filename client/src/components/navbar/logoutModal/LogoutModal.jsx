@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 
+import { withRouter } from "react-router-dom";
+
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, makeStyles, DialogContentText } from "@material-ui/core";
 
 import { useDispatch } from "react-redux";
@@ -21,7 +23,7 @@ const useStyles = makeStyles({
     },
 });
 
-function LogoutModal({ toggleMenu }) {
+function LogoutModal({ toggleMenu, history }) {
     const classes = useStyles();
 
     const dispatch = useDispatch();
@@ -34,6 +36,10 @@ function LogoutModal({ toggleMenu }) {
         dispatch(changeTab("Latest"));
         dispatch(getPosts(1, 0));
         dispatch(logout());
+
+        // redirect to homepage
+        history.push("/");
+
         dispatch(showToast("info", "Successfully logged out"));
 
         // close dropdown menu on navbar
@@ -68,4 +74,4 @@ function LogoutModal({ toggleMenu }) {
     );
 }
 
-export default LogoutModal;
+export default withRouter(LogoutModal);
